@@ -115,19 +115,35 @@ if (backButton) {
     });
 
 }
-document.addEventListener("DOMContentLoaded", async () => {
-    const visitor = document.getElementById("visitor-counter");
-    if (!visitor || typeof Counter === "undefined") return;
+// ======================
+// VISITOR COUNTER
+// ======================
 
-    const counter = new Counter({
-        workspace: "Abdulghafar Baba Muhammad's Workspace"
-    });
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const visitor = document.getElementById("visitor-counter");
+
+    if (!visitor) return;
 
     try {
-        const result = await counter.up("visitors");
-        visitor.textContent = `👥 Visitors: ${result.value}`;
-    } catch (error) {
-        console.error("Visitor counter failed:", error);
-        visitor.textContent = "👥 Visitors: error";
+
+        let visitors = localStorage.getItem("visitors");
+
+        if (!visitors) {
+            visitors = 1;
+        } else {
+            visitors = Number(visitors) + 1;
+        }
+
+        localStorage.setItem("visitors", visitors);
+
+        visitor.textContent = `👥 Visitors: ${visitors}`;
+
+    } catch(error) {
+
+        console.log(error);
+        visitor.textContent = "👥 Visitors: 0";
+
     }
+
 });
