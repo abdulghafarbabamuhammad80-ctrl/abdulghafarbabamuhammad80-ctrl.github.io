@@ -116,7 +116,7 @@ if (backButton) {
 
 }
 // ======================
-// VISITOR COUNTER
+// GLOBAL VISITOR COUNTER
 // ======================
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -127,22 +127,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
 
-        let visitors = localStorage.getItem("visitors");
+        const response = await fetch(
+            "https://api.countapi.xyz/hit/toolhub-abdulghafar/visits"
+        );
 
-        if (!visitors) {
-            visitors = 1;
-        } else {
-            visitors = Number(visitors) + 1;
-        }
+        const data = await response.json();
 
-        localStorage.setItem("visitors", visitors);
-
-        visitor.textContent = `👥 Visitors: ${visitors}`;
+        visitor.textContent = `👥 Visitors: ${data.value}`;
 
     } catch(error) {
 
         console.log(error);
-        visitor.textContent = "👥 Visitors: 0";
+        visitor.textContent = "👥 Visitors: unavailable";
 
     }
 
