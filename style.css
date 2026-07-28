@@ -1,0 +1,199 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#333;
+}
+
+/* Header */
+header{
+
+background:linear-gradient(135deg,#007bff,#00b4ff);
+
+padding:70px 20px;
+
+text-align:center;
+
+color:white;
+
+}
+
+.hero h1{
+
+font-size:50px;
+
+margin-bottom:15px;
+
+}
+
+.hero p{
+
+font-size:20px;
+
+margin-bottom:30px;
+
+}
+
+#search{
+
+width:90%;
+
+max-width:450px;
+
+padding:16px;
+
+border:none;
+
+border-radius:30px;
+
+font-size:17px;
+
+outline:none;
+
+}
+
+#search{
+    width:90%;
+    max-width:500px;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    outline:none;
+    box-shadow:0 4px 8px rgba(0,0,0,.2);
+}
+
+/* Tool Grid */
+main{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+/* Cards */
+.tool-card{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.tool-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 30px rgba(0,123,255,.25);
+}
+
+.tool-card h2{
+    margin-bottom:15px;
+}
+
+.tool-card p{
+    color:#666;
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+.tool-card button{
+    background:#007bff;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+}
+
+.tool-card button:hover{
+    background:#0056d2;
+    transform:scale(1.05);
+}
+
+/* Footer */
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+.tool-btn{
+    display:inline-block;
+    background:#007bff;
+    color:white;
+    text-decoration:none;
+    padding:12px 24px;
+    border-radius:30px;
+    transition:.3s;
+}
+
+.tool-btn:hover{
+    background:#0056d2;
+    transform:scale(1.05);
+}
+/* Hubby */
+
+#hubby{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:70px;
+    height:70px;
+    background:#007bff;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:36px;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+    z-index:999;
+}
+
+#hubby-chat{
+    position:fixed;
+    bottom:100px;
+    right:20px;
+    width:260px;
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    display:none;
+    z-index:1000;
+}
+
+#hubby-chat button{
+    width:100%;
+    margin-top:15px;
+}
+textarea{
+    width:100%;
+    padding:15px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+    resize:vertical;
+    margin-top:10px;
+    margin-bottom:15px;
+}
+footer a{
+    color:white;
+    text-decoration:none;
+    margin:0 8px;
+    font-weight:bold;
+}
+
+footer a:hover{
+    text-decoration:underline;
+}

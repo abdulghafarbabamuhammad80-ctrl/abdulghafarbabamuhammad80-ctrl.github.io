@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Colour Picker | ToolHub</title>
+
+<link rel="stylesheet" href="color.css">
+
+</head>
+<body>
+
+<header>
+
+<h1>🎨 Colour Picker</h1>
+
+<p>Choose any colour and copy its code.</p>
+
+<a href="index.html" class="home-btn">
+
+← Back to ToolHub
+
+</a>
+
+</header>
+
+<div class="container">
+
+<div id="preview"></div>
+
+<input
+type="color"
+id="colorPicker"
+value="#007bff">
+
+<label>HEX Code</label>
+
+<input
+type="text"
+id="hex"
+readonly>
+
+<label>RGB Code</label>
+
+<input
+type="text"
+id="rgb"
+readonly>
+
+<div class="buttons">
+
+<button id="copyHex">
+📋 Copy HEX
+</button>
+
+<button id="copyRgb">
+📋 Copy RGB
+</button>
+
+</div>
+
+<button id="resetBtn">
+
+🔄 Reset
+
+</button>
+
+</div>
+
+<script src="color.js"></script>
+
+</body>
+</html>

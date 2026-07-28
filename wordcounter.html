@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Word Counter | ToolHub</title>
+
+<link rel="stylesheet" href="wordcounter.css">
+
+</head>
+<body>
+
+<header>
+
+<h1>📝 Word Counter</h1>
+
+<p>Count words, characters and reading time instantly.</p>
+
+<a href="index.html" class="home-btn">
+← Back to ToolHub
+</a>
+
+</header>
+
+<div class="container">
+
+<textarea
+id="text"
+placeholder="Start typing or paste your text here..."></textarea>
+
+<div class="buttons">
+
+<button id="copyBtn">
+📋 Copy
+</button>
+
+<button id="clearBtn">
+🗑️ Clear
+</button>
+
+</div>
+
+<div class="stats">
+
+<div class="card">
+<h3 id="words">0</h3>
+<p>Words</p>
+</div>
+
+<div class="card">
+<h3 id="characters">0</h3>
+<p>Characters</p>
+</div>
+
+<div class="card">
+<h3 id="noSpaces">0</h3>
+<p>No Spaces</p>
+</div>
+
+<div class="card">
+<h3 id="sentences">0</h3>
+<p>Sentences</p>
+</div>
+
+<div class="card">
+<h3 id="paragraphs">0</h3>
+<p>Paragraphs</p>
+</div>
+
+<div class="card">
+<h3 id="reading">0 min</h3>
+<p>Reading Time</p>
+</div>
+
+</div>
+
+</div>
+
+<script src="wordcounter.js"></script>
+
+</body>
+</html>

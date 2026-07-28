@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Percentage Calculator | ToolHub</title>
+
+<link rel="stylesheet" href="percentage.css">
+
+</head>
+<body>
+
+<header>
+
+<h1>📊 Percentage Calculator Pro</h1>
+
+<p>Calculate percentages instantly.</p>
+
+<a href="index.html" class="home-btn">
+
+← Back to ToolHub
+
+</a>
+
+</header>
+
+<div class="container">
+
+<h2>Select Calculation</h2>
+
+<select id="calculatorType">
+
+<option value="percentOf">
+What is X% of Y?
+</option>
+
+<option value="whatPercent">
+X is what % of Y?
+</option>
+
+<option value="increase">
+Increase by %
+</option>
+
+<option value="decrease">
+Decrease by %
+</option>
+
+<option value="discount">
+Discount Calculator
+</option>
+
+<option value="markup">
+Markup Calculator
+</option>
+
+<option value="score">
+Exam Score
+</option>
+
+<option value="change">
+Percentage Change
+</option>
+
+</select>
+
+<label id="label1">Percentage</label>
+<input
+type="number"
+id="value1"
+placeholder="Enter value">
+
+<label id="label2">Number</label>
+<input
+type="number"
+id="value2"
+placeholder="Enter value">
+
+<button id="calculateBtn">
+
+📊 Calculate
+
+</button>
+<div class="buttons">
+
+<button id="copyBtn">
+📋 Copy Result
+</button>
+
+<button id="clearBtn">
+🗑️ Clear
+</button>
+
+</div>
+<div id="result">
+
+<h2>Result</h2>
+
+<p id="answer">
+
+0
+
+</p>
+
+</div>
+
+</div>
+
+<script src="percentage.js"></script>
+
+</body>
+</html>

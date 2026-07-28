@@ -1,0 +1,108 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:100vh;
+}
+
+header{
+    width:100%;
+    background:linear-gradient(135deg,#007bff,#00b4ff);
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+header h1{
+    font-size:36px;
+    margin-bottom:10px;
+}
+
+header p{
+    margin-bottom:20px;
+}
+
+.home-btn{
+    display:inline-block;
+    background:white;
+    color:#007bff;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+.container{
+    width:90%;
+    max-width:500px;
+    background:white;
+    margin:40px auto;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:18px;
+    border:none;
+    border-radius:12px;
+    background:#007bff;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#005fd1;
+}
+
+#result{
+    margin-top:25px;
+    background:#f8f9fa;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+#answer{
+    font-size:42px;
+    color:#007bff;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.buttons button{
+    flex:1;
+}
