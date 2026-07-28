@@ -120,26 +120,44 @@ if (backButton) {
 // ======================
 
 document.addEventListener("DOMContentLoaded", async () => {
-
     const visitor = document.getElementById("visitor-counter");
-
     if (!visitor) return;
 
-    try {
+    visitor.textContent = "👥 Visitors: Loading...";
 
-        const response = await fetch(
-            "https://api.countapi.xyz/hit/toolhub-abdulghafar/visits"
+    const timeout = (ms) =>
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Request timed out")), ms)
         );
+
+    try {
+        const response = await Promise.race([
+            fetch("https://api.countapi.xyz/hit/toolhub-abdulghafar/visits", {
+                cache: "no-store"
+            }),
+            timeout(5000)
+        ]);
+
+        if (!response || !response.ok) {
+            throw new Error("Counter request failed");
+        }
 
         const data = await response.json();
 
+        if (typeof data.value !== "number") {
+            throw new Error("Bad counter response");
+        }
+
         visitor.textContent = `👥 Visitors: ${data.value}`;
 
-    } catch(error) {
+    } catch (error) {
+        console.log("Visitor counter failed:", error);
 
-        console.log(error);
-        visitor.textContent = "👥 Visitors: unavailable";
+        let fallback = localStorage.getItem("toolhub_visitors");
 
+        fallback = fallback ? Number(fallback) + 1 : 1;
+        localStorage.setItem("toolhub_visitors", fallback);
+
+        visitor.textContent = `👥 Visitors: ${fallback} (offline)`;
     }
-
 });
