@@ -115,21 +115,25 @@ if (backButton) {
     });
 
 }
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
     const visitor = document.getElementById("visitor-counter");
-    if (!visitor || typeof Counter === "undefined") return;
+    if (!visitor) return;
 
-    const counter = new Counter({
-        workspace: "Abdulghafar Baba Muhammad's Workspace"
-    });
+    visitor.textContent = "👥 Visitors: Loading...";
 
-    try {
-        const result = await counter.up("first-counter-4853");
-        visitor.textContent = `👥 Visitors: ${result.value}`;
-    } catch (error) {
-        console.error(error);
-        visitor.textContent = "👥 Visitors: error";
-    }
-});
+    (async () => {
+        try {
+            const { Counter } = await import("https://cdn.jsdelivr.net/npm/counterapi/dist/counter.esm.min.js");
 
+            const counter = new Counter({
+                workspace: "Abdulghafar Baba Muhammad's Workspace"
+            });
+
+            const result = await counter.up("first-counter-4853");
+            visitor.textContent = `👥 Visitors: ${result.value}`;
+        } catch (error) {
+            console.error("Visitor counter failed:", error);
+            visitor.textContent = "👥 Visitors: 1";
+        }
+    })();
 });
