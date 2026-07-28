@@ -116,25 +116,20 @@ if (backButton) {
 
 }
 document.addEventListener("DOMContentLoaded", async () => {
-
     const visitor = document.getElementById("visitor-counter");
+    if (!visitor || typeof Counter === "undefined") return;
 
     const counter = new Counter({
-        workspace: "Toolhub"
+        workspace: "Abdulghafar Baba Muhammad's Workspace"
     });
 
     try {
-
-        const result = await counter.up("page-views");
-
+        const result = await counter.up("first-counter-4853");
         visitor.textContent = `👥 Visitors: ${result.value}`;
-
     } catch (error) {
-
-        visitor.textContent = "👥 Visitors: 1";
-
-        console.log(error);
-
+        console.error(error);
+        visitor.textContent = "👥 Visitors: error";
     }
+});
 
 });
