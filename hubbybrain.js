@@ -82,3 +82,12 @@ function searchHubbyBrain(message) {
     return null;
 
 }
+console.log(`
+🤖 Hubby Brain Loaded
+
+Version: ${HubbyBrain.version}
+
+Knowledge: ${HubbyBrain.knowledge.length}
+
+Status: Online 🟢
+`);
