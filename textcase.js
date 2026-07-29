@@ -7,7 +7,7 @@ const sentenceBtn = document.getElementById("sentenceBtn");
 const invertBtn = document.getElementById("invertBtn");
 const copyBtn = document.getElementById("copyBtn");
 const clearBtn = document.getElementById("clearBtn");
-
+const downloadBtn = document.getElementById("downloadBtn");
 const textStats = document.getElementById("textStats");
 
 // Update character and word count
@@ -100,7 +100,25 @@ copyBtn.onclick = async () => {
     }
 
 };
+// Download Text
+downloadBtn.onclick = () => {
 
+    const blob = new Blob(
+        [textInput.value],
+        { type: "text/plain" }
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "toolhub-text.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+
+};
 // Clear
 clearBtn.onclick = () => {
 
