@@ -92,7 +92,20 @@ function findMatchingTool(text) {
 function hubbyReply(userText) {
     const text = userText.trim();
     const lower = text.toLowerCase();
+// Ask Hubby Brain first
+const brainAnswer = searchHubbyBrain(text);
 
+if (brainAnswer) {
+
+    HubbyBrain.adaptation++;
+
+    console.log("🧠 Adaptation Complete");
+
+    console.log("Knowledge Used:", HubbyBrain.experience);
+
+    return brainAnswer;
+
+}
     if (!text) {
         return "Type a message and I’ll help you.";
     }
