@@ -23,8 +23,9 @@ const HubbyBrain = {
         },
 
         {
-            keywords: ["age", "birthday"],
-            answer: "🎂 Use the Age Calculator."
+    keywords: ["age", "birthday"],
+    answer: "🎂 Opening the Age Calculator...",
+    tool: "age.html"
         },
 
         {
