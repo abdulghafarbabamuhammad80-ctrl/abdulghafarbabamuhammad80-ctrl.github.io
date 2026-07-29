@@ -22,7 +22,7 @@ if (search) {
 // ======================
 
 const hubby = document.getElementById("hubby");
-const hubbyChat = document.getElementById("hubby-chat");
+const hubbyOverlay = document.getElementById("hubby-overlay");
 const hubbyMessages = document.getElementById("hubby-messages");
 const hubbyInput = document.getElementById("hubby-input");
 const hubbySend = document.getElementById("hubby-send");
