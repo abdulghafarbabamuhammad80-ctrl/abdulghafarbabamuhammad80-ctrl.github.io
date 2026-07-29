@@ -57,13 +57,15 @@ function addHubbyMessage(text, type = "bot") {
 }
 
 function openHubby() {
-    if (!hubbyChat) return;
-    hubbyChat.style.display = "block";
+    if (!hubbyOverlay) return;
 
-    if (hubbyMessages && hubbyMessages.children.length === 0) {
-        addHubbyMessage("Hello! I’m Hubby AI 🤖");
-        addHubbyMessage("I can help you find tools, explain pages, and answer ToolHub questions.");
-        addHubbyMessage("Try typing: password, qr, word count, age, timer, or help");
+    hubbyOverlay.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+    if (hubbyMessages.children.length === 0) {
+        addHubbyMessage("👋 Hello, human!");
+        addHubbyMessage("I'm Hubby AI. Ask me anything about ToolHub.");
     }
 }
 
