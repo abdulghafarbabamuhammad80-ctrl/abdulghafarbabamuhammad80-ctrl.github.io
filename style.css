@@ -12,15 +12,14 @@ body{
 
 /* Header */
 header{
-
-background:linear-gradient(135deg,#007bff,#00b4ff);
-
-padding:70px 20px;
-
-text-align:center;
-
-color:white;
-
+    background: linear-gradient(135deg,#0066ff,#00b8ff,#00e0ff);
+    background-size: 300% 300%;
+    animation: gradientMove 8s ease infinite;
+    padding: 90px 20px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero h1{
