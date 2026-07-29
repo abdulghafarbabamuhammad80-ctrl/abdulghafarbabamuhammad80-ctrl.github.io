@@ -6,97 +6,161 @@ const search = document.getElementById("search");
 
 if (search) {
     search.addEventListener("input", () => {
-
         const value = search.value.toLowerCase();
         const cards = document.querySelectorAll(".tool-card");
 
         cards.forEach(card => {
-
             const text = card.innerText.toLowerCase();
-
-            if (text.includes(value)) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-
+            card.style.display = text.includes(value) ? "block" : "none";
         });
-
     });
 }
 
 
 // ======================
-// HUBBY ROBOT
+// SMART HUBBY AI
 // ======================
 
 const hubby = document.getElementById("hubby");
 const hubbyChat = document.getElementById("hubby-chat");
+const hubbyMessages = document.getElementById("hubby-messages");
+const hubbyInput = document.getElementById("hubby-input");
+const hubbySend = document.getElementById("hubby-send");
+const closeHubby = document.getElementById("closeHubby");
 
-if (hubby && hubbyChat) {
+const toolData = [
+    { name: "Password Generator", url: "password.html", keywords: ["password", "pass", "secure", "strong"] },
+    { name: "QR Code Generator", url: "qr.html", keywords: ["qr", "barcode", "code"] },
+    { name: "Word Counter", url: "wordcounter.html", keywords: ["word", "count", "characters", "character"] },
+    { name: "Age Calculator", url: "age.html", keywords: ["age", "birthday", "born"] },
+    { name: "Percentage Calculator", url: "percentage.html", keywords: ["percentage", "percent", "%"] },
+    { name: "Random Number", url: "random.html", keywords: ["random", "number"] },
+    { name: "Coin Flip", url: "coin.html", keywords: ["coin", "flip", "head", "tails"] },
+    { name: "Colour Picker", url: "color.html", keywords: ["colour", "color", "pick"] },
+    { name: "Unit Converter", url: "converter.html", keywords: ["unit", "convert", "converter"] },
+    { name: "Stopwatch & Timer", url: "stopwatch.html", keywords: ["stopwatch", "timer", "time"] },
+    { name: "Text Case Converter", url: "textcase.html", keywords: ["case", "upper", "lower", "title"] },
+    { name: "Character Counter", url: "charactercount.html", keywords: ["character", "letters", "count"] },
+    { name: "JSON Formatter", url: "jsonformatter.html", keywords: ["json", "format", "formatter"] },
+    { name: "URL Encoder / Decoder", url: "urltool.html", keywords: ["url", "encode", "decode", "link"] },
+    { name: "Image Resizer", url: "resizer.html", keywords: ["image", "resize", "photo"] }
+];
 
-    hubby.addEventListener("click", () => {
+function addHubbyMessage(text, type = "bot") {
+    if (!hubbyMessages) return;
 
-        hubbyChat.innerHTML = `
-            <h3>🤖 Hubby</h3>
+    const msg = document.createElement("div");
+    msg.className = `hubby-message ${type}`;
+    msg.textContent = text;
+    hubbyMessages.appendChild(msg);
+    hubbyMessages.scrollTop = hubbyMessages.scrollHeight;
+}
 
-            <p>Hello! I'm Hubby.</p>
+function openHubby() {
+    if (!hubbyChat) return;
+    hubbyChat.style.display = "block";
 
-            <p>I can help you find the right tool.</p>
+    if (hubbyMessages && hubbyMessages.children.length === 0) {
+        addHubbyMessage("Hello! I’m Hubby AI 🤖");
+        addHubbyMessage("I can help you find tools, explain pages, and answer ToolHub questions.");
+        addHubbyMessage("Try typing: password, qr, word count, age, timer, or help");
+    }
+}
 
-            <button onclick="findTool()">🔍 Find Tool</button>
+function closeHubbyChat() {
+    if (!hubbyChat) return;
+    hubbyChat.style.display = "none";
+}
 
-            <button onclick="aboutHubby()">🤖 About Me</button>
+function findMatchingTool(text) {
+    const lower = text.toLowerCase();
 
-            <button id="closeHubby">❌ Close</button>
-        `;
+    for (const tool of toolData) {
+        if (tool.keywords.some(keyword => lower.includes(keyword))) {
+            return tool;
+        }
+    }
 
-        hubbyChat.style.display = "block";
+    return null;
+}
 
-        document
-            .getElementById("closeHubby")
-            .addEventListener("click", () => {
+function hubbyReply(userText) {
+    const text = userText.trim();
+    const lower = text.toLowerCase();
 
-                hubbyChat.style.display = "none";
+    if (!text) {
+        return "Type a message and I’ll help you.";
+    }
 
-            });
+    if (
+        lower.includes("hello") ||
+        lower.includes("hi") ||
+        lower.includes("hey")
+    ) {
+        return "Hi 😄 I’m Hubby AI. Ask me about any tool on ToolHub.";
+    }
 
+    if (
+        lower.includes("help") ||
+        lower.includes("tools") ||
+        lower.includes("what can you do")
+    ) {
+        return "I can find tools like Password Generator, QR Code, Word Counter, Age Calculator, Timer, and more. You can also ask me about About, Privacy, or Contact.";
+    }
+
+    if (lower.includes("about")) {
+        return "ToolHub is your collection of free online tools. It’s built to help visitors do quick tasks fast.";
+    }
+
+    if (lower.includes("privacy")) {
+        return "The Privacy Policy page explains how ToolHub handles site use and visitor information.";
+    }
+
+    if (lower.includes("contact")) {
+        return "Use the Contact page to reach you or your support details.";
+    }
+
+    const matchedTool = findMatchingTool(text);
+    if (matchedTool) {
+        return `I found: ${matchedTool.name}. Opening that tool is the best next step.`;
+    }
+
+    return "I didn’t catch that one. Try naming a tool, or type 'help' for options.";
+}
+
+function handleHubbySend() {
+    if (!hubbyInput) return;
+
+    const userText = hubbyInput.value.trim();
+    if (!userText) return;
+
+    addHubbyMessage(userText, "user");
+
+    const reply = hubbyReply(userText);
+    setTimeout(() => addHubbyMessage(reply, "bot"), 250);
+
+    hubbyInput.value = "";
+    hubbyInput.focus();
+}
+
+if (hubby) {
+    hubby.addEventListener("click", openHubby);
+}
+
+if (closeHubby) {
+    closeHubby.addEventListener("click", closeHubbyChat);
+}
+
+if (hubbySend) {
+    hubbySend.addEventListener("click", handleHubbySend);
+}
+
+if (hubbyInput) {
+    hubbyInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            handleHubbySend();
+        }
     });
-
-}
-
-
-// ======================
-// HUBBY FUNCTIONS
-// ======================
-
-function findTool() {
-
-    alert(`🤖 Available tools:
-
-🔑 Password Generator
-📱 QR Code Generator
-📝 Word Counter
-🎂 Age Calculator
-📊 Percentage Calculator
-🎲 Random Number
-🪙 Coin Flip
-🎨 Colour Picker
-📏 Unit Converter
-⏱️ Stopwatch`);
-
-}
-
-function aboutHubby() {
-
-    alert(`🤖 Hi!
-
-I'm Hubby.
-
-I help visitors use ToolHub.
-
-More updates are coming soon! 🚀`);
-
 }
 
 
@@ -107,13 +171,9 @@ More updates are coming soon! 🚀`);
 const backButton = document.getElementById("backButton");
 
 if (backButton) {
-
     backButton.addEventListener("click", () => {
-
         window.history.back();
-
     });
-
 }
 // ======================
 // GLOBAL VISITOR COUNTER
