@@ -122,7 +122,11 @@ function hubbyReply(userText) {
 
     const matchedTool = findMatchingTool(text);
     if (matchedTool) {
-        return `I found: ${matchedTool.name}. Opening that tool is the best next step.`;
+        setTimeout(() => {
+    window.location.href = matchedTool.url;
+}, 1200);
+
+return `Opening ${matchedTool.name}... 🚀`;
     }
 
     return "I didn’t catch that one. Try naming a tool, or type 'help' for options.";
