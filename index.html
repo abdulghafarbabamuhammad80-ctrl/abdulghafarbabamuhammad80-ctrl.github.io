@@ -142,24 +142,60 @@ Open Tool
 </main>
 
 
-<div id="hubby">🤖</div>
+<div id="hubby">
+    🤖
+</div>
 
-<div id="hubby-chat" style="display:none;">
-    <div id="hubby-header">
-        <h3>🤖 Hubby AI</h3>
-        <button id="closeHubby" type="button">✖</button>
+<div id="hubby-overlay">
+
+    <div id="hubby-window">
+
+        <div id="hubby-top">
+
+            <div>
+
+                <h2>🤖 Hubby AI</h2>
+
+                <p>Hello, human 👋</p>
+
+            </div>
+
+            <button id="closeHubby">
+                ✖
+            </button>
+
+        </div>
+
+        <div id="hubby-messages">
+
+            <div class="hubby-message bot">
+
+                Welcome to ToolHub!
+
+                Ask me anything.
+
+            </div>
+
+        </div>
+
+        <div id="hubby-bottom">
+
+            <input
+                id="hubby-input"
+                placeholder="Ask Hubby anything..."
+            >
+
+            <button id="hubby-send">
+
+                ➜
+
+            </button>
+
+        </div>
+
     </div>
 
-    <div id="hubby-messages"></div>
-
-    <div id="hubby-input-area">
-        <input
-            type="text"
-            id="hubby-input"
-            placeholder="Ask Hubby anything..."
-        >
-        <button id="hubby-send" type="button">Send</button>
-    </div>
+</div>
 </div>
 <script src="script.js"></script>
 <footer>
