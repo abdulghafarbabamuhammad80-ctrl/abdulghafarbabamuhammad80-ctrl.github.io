@@ -19,10 +19,10 @@ const HubbyBrain = {
         },
 
         {
-            keywords: ["qr", "qr code", "barcode"],
-            answer: "📱 The QR Code Generator can create QR codes instantly."
+    keywords: ["qr"],
+    answer: "📱 Opening QR Generator...",
+    tool: "qr.html"
         },
-
         {
     keywords: ["age", "birthday"],
     answer: "🎂 Opening the Age Calculator...",
