@@ -70,8 +70,11 @@ function openHubby() {
 }
 
 function closeHubbyChat() {
-    if (!hubbyChat) return;
-    hubbyChat.style.display = "none";
+    if (!hubbyOverlay) return;
+
+    hubbyOverlay.classList.remove("show");
+
+    document.body.style.overflow = "";
 }
 
 function findMatchingTool(text) {
