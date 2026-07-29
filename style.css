@@ -141,42 +141,6 @@ footer{
     background:#0056d2;
     transform:scale(1.05);
 }
-/* Hubby */
-
-#hubby{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    width:70px;
-    height:70px;
-    background:#007bff;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:36px;
-    cursor:pointer;
-    box-shadow:0 5px 20px rgba(0,0,0,.3);
-    z-index:999;
-}
-
-#hubby-chat{
-    position:fixed;
-    bottom:100px;
-    right:20px;
-    width:260px;
-    background:white;
-    border-radius:15px;
-    padding:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-    display:none;
-    z-index:1000;
-}
-
-#hubby-chat button{
-    width:100%;
-    margin-top:15px;
-}
 textarea{
     width:100%;
     padding:15px;
