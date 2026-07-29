@@ -13,8 +13,9 @@ const HubbyBrain = {
     knowledge: [
 
         {
-            keywords: ["password", "secure", "strong password"],
-            answer: "🔑 You should use the Password Generator."
+    keywords: ["password"],
+    answer: "🔑 Opening Password Generator...",
+    tool: "password.html"
         },
 
         {
