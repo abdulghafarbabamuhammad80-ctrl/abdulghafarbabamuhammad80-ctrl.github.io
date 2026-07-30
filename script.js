@@ -92,72 +92,46 @@ function findMatchingTool(text) {
 function hubbyReply(userText) {
     const text = userText.trim();
     const lower = text.toLowerCase();
-// Ask Hubby Brain first
-const brainAnswer = searchHubbyBrain(text);
-const brainAnswer = searchHubbyBrain(text);
 
-if (brainAnswer) {
-    if (brainAnswer.tool) {
-        setTimeout(() => {
-            window.location.href = brainAnswer.tool;
-        }, 1200);
+    const brainAnswer = searchHubbyBrain(text);
+
+    if (brainAnswer) {
+        HubbyBrain.adaptation++;
+
+        if (brainAnswer.tool) {
+            setTimeout(() => {
+                window.location.href = brainAnswer.tool;
+            }, 1200);
+        }
+
+        return brainAnswer.answer;
     }
 
-    return brainAnswer.answer;
-}
-if (brainAnswer) {
-
-    HubbyBrain.adaptation++;
-
-    console.log("🧠 Adaptation Complete");
-
-    console.log("Knowledge Used:", HubbyBrain.experience);
-
-    return brainAnswer;
-
-}
     if (!text) {
         return "Type a message and I’ll help you.";
     }
 
-    if (
-        lower.includes("hello") ||
-        lower.includes("hi") ||
-        lower.includes("hey")
-    ) {
-        return "Hi 😄 I’m Hubby AI. Ask me about any tool on ToolHub.";
+    if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
+        return "👋 Hello, human! I’m Hubby AI.";
     }
 
-    if (
-        lower.includes("help") ||
-        lower.includes("tools") ||
-        lower.includes("what can you do")
-    ) {
-        return "I can find tools like Password Generator, QR Code, Word Counter, Age Calculator, Timer, and more. You can also ask me about About, Privacy, or Contact.";
+    if (lower.includes("help") || lower.includes("tools") || lower.includes("what can you do")) {
+        return "I can help you find ToolHub tools. Try typing password, qr, age, word, text case, contact, or privacy.";
     }
 
     if (lower.includes("about")) {
-        return "ToolHub is your collection of free online tools. It’s built to help visitors do quick tasks fast.";
+        return "📄 Open the About page to learn more about ToolHub.";
     }
 
     if (lower.includes("privacy")) {
-        return "The Privacy Policy page explains how ToolHub handles site use and visitor information.";
+        return "🔒 Open the Privacy Policy page.";
     }
 
     if (lower.includes("contact")) {
-        return "Use the Contact page to reach you or your support details.";
+        return "📬 Open the Contact page.";
     }
 
-    const matchedTool = findMatchingTool(text);
-    if (matchedTool) {
-        setTimeout(() => {
-    window.location.href = matchedTool.url;
-}, 1200);
-
-return `Opening ${matchedTool.name}... 🚀`;
-    }
-
-    return "I didn’t catch that one. Try naming a tool, or type 'help' for options.";
+    return "I didn’t catch that one. Try typing a tool name or ask for help.";
 }
 
 function handleHubbySend() {
