@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON Formatter | ToolHub</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7fb;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:#fff;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.back{
+text-decoration:none;
+color:#007bff;
+font-weight:bold;
+}
+
+h1{
+text-align:center;
+margin:20px 0;
+color:#007bff;
+}
+
+textarea{
+width:100%;
+height:220px;
+padding:15px;
+font-size:16px;
+border:2px solid #ddd;
+border-radius:12px;
+resize:vertical;
+outline:none;
+margin-bottom:15px;
+}
+
+textarea:focus{
+border-color:#007bff;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#007bff;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0056d2;
+}
+
+#status{
+margin-top:15px;
+font-weight:bold;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a class="back" href="index.html">← Back to ToolHub</a>
+
+<h1>🧾 JSON Formatter</h1>
+
+<textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
+
+<div class="buttons">
+<button onclick="formatJSON()">✨ Format JSON</button>
+<button onclick="copyJSON()">📋 Copy</button>
+<button onclick="clearJSON()">🗑 Clear</button>
+</div>
+
+<p id="status"></p>
+
+</div>
+
+<script>
+
+const input=document.getElementById("jsonInput");
+const status=document.getElementById("status");
+
+function formatJSON(){
+
+try{
+
+const obj=JSON.parse(input.value);
+
+input.value=JSON.stringify(obj,null,4);
+
+status.style.color="green";
+
+status.textContent="✅ Valid JSON formatted successfully.";
+
+}catch{
+
+status.style.color="red";
+
+status.textContent="❌ Invalid JSON.";
+
+}
+
+}
+
+function copyJSON(){
+
+navigator.clipboard.writeText(input.value);
+
+status.style.color="green";
+
+status.textContent="📋 Copied to clipboard.";
+
+}
+
+function clearJSON(){
+
+input.value="";
+
+status.textContent="";
+
+}
+
+</script>
+
+</body>
+</html>
