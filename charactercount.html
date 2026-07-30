@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Character Counter | ToolHub</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#f4f7fb;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#007bff;
+}
+
+textarea{
+width:100%;
+height:220px;
+padding:15px;
+font-size:17px;
+border:2px solid #ddd;
+border-radius:12px;
+resize:vertical;
+outline:none;
+}
+
+textarea:focus{
+border-color:#007bff;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+.card{
+background:#007bff;
+color:white;
+padding:18px;
+border-radius:15px;
+text-align:center;
+}
+
+.card h2{
+font-size:28px;
+margin-bottom:8px;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:15px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0056d2;
+}
+
+.back{
+display:inline-block;
+margin-bottom:20px;
+text-decoration:none;
+color:#007bff;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back">← Back to ToolHub</a>
+
+<h1>🔤 Character Counter</h1>
+
+<textarea id="text" placeholder="Start typing..."></textarea>
+
+<div class="stats">
+
+<div class="card">
+<h2 id="characters">0</h2>
+<p>Characters</p>
+</div>
+
+<div class="card">
+<h2 id="spaces">0</h2>
+<p>No Spaces</p>
+</div>
+
+<div class="card">
+<h2 id="words">0</h2>
+<p>Words</p>
+</div>
+
+<div class="card">
+<h2 id="lines">0</h2>
+<p>Lines</p>
+</div>
+
+</div>
+
+<button onclick="clearText()">🗑 Clear Text</button>
+
+</div>
+
+<script>
+
+const text=document.getElementById("text");
+
+const characters=document.getElementById("characters");
+
+const spaces=document.getElementById("spaces");
+
+const words=document.getElementById("words");
+
+const lines=document.getElementById("lines");
+
+text.addEventListener("input",update);
+
+function update(){
+
+const value=text.value;
+
+characters.textContent=value.length;
+
+spaces.textContent=value.replace(/\s/g,"").length;
+
+const wordList=value.trim();
+
+words.textContent=wordList?wordList.split(/\s+/).length:0;
+
+lines.textContent=value===""?0:value.split("\n").length;
+
+}
+
+function clearText(){
+
+text.value="";
+
+update();
+
+}
+
+update();
+
+</script>
+
+</body>
+</html>
