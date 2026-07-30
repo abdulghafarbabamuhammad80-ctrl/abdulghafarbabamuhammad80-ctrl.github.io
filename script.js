@@ -94,7 +94,17 @@ function hubbyReply(userText) {
     const lower = text.toLowerCase();
 // Ask Hubby Brain first
 const brainAnswer = searchHubbyBrain(text);
+const brainAnswer = searchHubbyBrain(text);
 
+if (brainAnswer) {
+    if (brainAnswer.tool) {
+        setTimeout(() => {
+            window.location.href = brainAnswer.tool;
+        }, 1200);
+    }
+
+    return brainAnswer.answer;
+}
 if (brainAnswer) {
 
     HubbyBrain.adaptation++;
