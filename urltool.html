@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Encoder / Decoder | ToolHub</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7fb;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.back{
+text-decoration:none;
+color:#007bff;
+font-weight:bold;
+}
+
+h1{
+text-align:center;
+margin:20px 0;
+color:#007bff;
+}
+
+textarea{
+width:100%;
+height:180px;
+padding:15px;
+font-size:16px;
+border:2px solid #ddd;
+border-radius:12px;
+resize:vertical;
+outline:none;
+margin-bottom:15px;
+}
+
+.buttons{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#007bff;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0056d2;
+}
+
+#status{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back">← Back to ToolHub</a>
+
+<h1>🔗 URL Encoder / Decoder</h1>
+
+<textarea id="text" placeholder="Paste a URL or text here..."></textarea>
+
+<div class="buttons">
+<button onclick="encodeURL()">🔒 Encode</button>
+<button onclick="decodeURL()">🔓 Decode</button>
+<button onclick="copyText()">📋 Copy</button>
+<button onclick="clearText()">🗑 Clear</button>
+</div>
+
+<p id="status"></p>
+
+</div>
+
+<script>
+
+const text=document.getElementById("text");
+const status=document.getElementById("status");
+
+function encodeURL(){
+try{
+text.value=encodeURIComponent(text.value);
+status.style.color="green";
+status.textContent="✅ Encoded successfully.";
+}catch{
+status.style.color="red";
+status.textContent="❌ Unable to encode.";
+}
+}
+
+function decodeURL(){
+try{
+text.value=decodeURIComponent(text.value);
+status.style.color="green";
+status.textContent="✅ Decoded successfully.";
+}catch{
+status.style.color="red";
+status.textContent="❌ Invalid encoded text.";
+}
+}
+
+function copyText(){
+navigator.clipboard.writeText(text.value);
+status.style.color="green";
+status.textContent="📋 Copied!";
+}
+
+function clearText(){
+text.value="";
+status.textContent="";
+}
+
+</script>
+
+</body>
+  </html>
