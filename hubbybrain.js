@@ -1,9 +1,9 @@
 // ======================
-// HUBBY BRAIN v1.1
+// HUBBY BRAIN v1.2
 // ======================
 
 const HubbyBrain = {
-    version: "1.1",
+    version: "1.2",
     name: "Hubby",
     greeting: "Hello, human 👋",
     experience: 0,
@@ -67,17 +67,17 @@ const HubbyBrain = {
         },
         {
             keywords: ["about"],
-            answer: "📄 Open the About page to learn more about ToolHub.",
+            answer: "📄 Opening the About page...",
             tool: "about.html"
         },
         {
             keywords: ["privacy"],
-            answer: "🔒 Open the Privacy Policy page.",
+            answer: "🔒 Opening the Privacy Policy page...",
             tool: "privacy.html"
         },
         {
             keywords: ["contact"],
-            answer: "📬 Open the Contact page.",
+            answer: "📬 Opening the Contact page...",
             tool: "contact.html"
         }
     ]
