@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Resizer | ToolHub</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7fb;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.back{
+text-decoration:none;
+color:#007bff;
+font-weight:bold;
+}
+
+h1{
+text-align:center;
+margin:20px 0;
+color:#007bff;
+}
+
+input[type=file]{
+margin:15px 0;
+width:100%;
+}
+
+.preview{
+text-align:center;
+margin:20px 0;
+}
+
+.preview img{
+max-width:100%;
+max-height:300px;
+border-radius:12px;
+display:none;
+}
+
+.inputs{
+display:flex;
+gap:10px;
+margin:20px 0;
+}
+
+.inputs input{
+flex:1;
+padding:12px;
+font-size:16px;
+border:2px solid #ddd;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:12px;
+font-size:17px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#0056d2;
+}
+
+#status{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back">← Back to ToolHub</a>
+
+<h1>🖼️ Image Resizer</h1>
+
+<input type="file" id="upload" accept="image/*">
+
+<div class="preview">
+<img id="preview">
+</div>
+
+<div class="inputs">
+<input id="width" type="number" placeholder="Width">
+<input id="height" type="number" placeholder="Height">
+</div>
+
+<button onclick="resizeImage()">📏 Resize Image</button>
+
+<button onclick="downloadImage()">💾 Download Image</button>
+
+<p id="status"></p>
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+</div>
+
+<script>
+
+const upload=document.getElementById("upload");
+const preview=document.getElementById("preview");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+const status=document.getElementById("status");
+
+upload.addEventListener("change",()=>{
+
+const file=upload.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=e=>{
+
+preview.src=e.target.result;
+preview.style.display="block";
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+function resizeImage(){
+
+if(!preview.src){
+
+status.style.color="red";
+status.textContent="Please upload an image.";
+
+return;
+
+}
+
+const img=new Image();
+
+img.onload=()=>{
+
+const w=parseInt(document.getElementById("width").value)||img.width;
+
+const h=parseInt(document.getElementById("height").value)||img.height;
+
+canvas.width=w;
+canvas.height=h;
+
+ctx.clearRect(0,0,w,h);
+ctx.drawImage(img,0,0,w,h);
+
+status.style.color="green";
+status.textContent="✅ Image resized successfully.";
+
+};
+
+img.src=preview.src;
+
+}
+
+function downloadImage(){
+
+const link=document.createElement("a");
+
+link.download="toolhub-image.png";
+
+link.href=canvas.toDataURL("image/png");
+
+link.click();
+
+}
+
+</script>
+
+</body>
+</html>
