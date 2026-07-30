@@ -96,14 +96,11 @@ function hubbyReply(userText) {
     const brainAnswer = searchHubbyBrain(text);
 
     if (brainAnswer) {
-        HubbyBrain.adaptation++;
-
         if (brainAnswer.tool) {
             setTimeout(() => {
                 window.location.href = brainAnswer.tool;
             }, 1200);
         }
-
         return brainAnswer.answer;
     }
 
@@ -119,21 +116,8 @@ function hubbyReply(userText) {
         return "I can help you find ToolHub tools. Try typing password, qr, age, word, text case, contact, or privacy.";
     }
 
-    if (lower.includes("about")) {
-        return "📄 Open the About page to learn more about ToolHub.";
-    }
-
-    if (lower.includes("privacy")) {
-        return "🔒 Open the Privacy Policy page.";
-    }
-
-    if (lower.includes("contact")) {
-        return "📬 Open the Contact page.";
-    }
-
     return "I didn’t catch that one. Try typing a tool name or ask for help.";
 }
-
 function handleHubbySend() {
     if (!hubbyInput) return;
 
