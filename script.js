@@ -118,39 +118,34 @@ function hubbyReply(userText) {
 
     return "I didn’t catch that one. Try typing a tool name or ask for help.";
 }
-function handleHubbySend() {
+async function handleHubbySend() {
     if (!hubbyInput) return;
 
     const userText = hubbyInput.value.trim();
     if (!userText) return;
 
     addHubbyMessage(userText, "user");
-
-    const reply = hubbyReply(userText);
-    setTimeout(() => addHubbyMessage(reply, "bot"), 250);
-
     hubbyInput.value = "";
-    hubbyInput.focus();
-}
 
-if (hubby) {
-    hubby.addEventListener("click", openHubby);
-}
+    try {
+        const response = await fetch("https://broken-water-7b92.toolhub-help.workers.dev", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: userText
+            })
+        });
 
-if (closeHubby) {
-    closeHubby.addEventListener("click", closeHubbyChat);
-}
+        const data = await response.json();
 
-if (hubbySend) {
-    hubbySend.addEventListener("click", handleHubbySend);
-}
+        addHubbyMessage(data.reply || "Hubby didn't reply.", "bot");
 
-if (hubbyInput) {
-    hubbyInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            handleHubbySend();
-        }
-    });
+    } catch (error) {
+        console.error(error);
+        addHubbyMessage("⚠️ Hubby is offline right now.", "bot");
+    }
 }
 
 
