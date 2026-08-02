@@ -89,34 +89,28 @@ function findMatchingTool(text) {
     return null;
 }
 
-function hubbyReply(userText) {
-    const text = userText.trim();
-    const lower = text.toLowerCase();
+async function hubbyReply(userText) {
 
-    const brainAnswer = searchHubbyBrain(text);
+    try {
 
-    if (brainAnswer) {
-        if (brainAnswer.tool) {
-            setTimeout(() => {
-                window.location.href = brainAnswer.tool;
-            }, 1200);
-        }
-        return brainAnswer.answer;
+        const response = await fetch("https://broken-water-7b92.toolhub-help.workers.dev", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: userText
+            })
+        });
+
+        const data = await response.json();
+
+        return data.reply || "I couldn't think of an answer.";
+
+    } catch (err) {
+        return "⚠️ Hubby AI is offline.";
     }
 
-    if (!text) {
-        return "Type a message and I’ll help you.";
-    }
-
-    if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
-        return "👋 Hello, human! I’m Hubby AI.";
-    }
-
-    if (lower.includes("help") || lower.includes("tools") || lower.includes("what can you do")) {
-        return "I can help you find ToolHub tools. Try typing password, qr, age, word, text case, contact, or privacy.";
-    }
-
-    return "I didn’t catch that one. Try typing a tool name or ask for help.";
 }
 async function handleHubbySend() {
     if (!hubbyInput) return;
