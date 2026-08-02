@@ -113,35 +113,28 @@ async function hubbyReply(userText) {
 
 }
 async function handleHubbySend() {
+
     if (!hubbyInput) return;
 
     const userText = hubbyInput.value.trim();
+
     if (!userText) return;
 
     addHubbyMessage(userText, "user");
+
     hubbyInput.value = "";
 
-    try {
-        const response = await fetch("https://broken-water-7b92.toolhub-help.workers.dev", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: userText
-            })
-        });
+    addHubbyMessage("🤔 Thinking...", "bot");
 
-        const data = await response.json();
+    const thinking = hubbyMessages.lastChild;
 
-        addHubbyMessage(data.reply || "Hubby didn't reply.", "bot");
+    const reply = await hubbyReply(userText);
 
-    } catch (error) {
-        console.error(error);
-        addHubbyMessage("⚠️ Hubby is offline right now.", "bot");
-    }
+    thinking.remove();
+
+    addHubbyMessage(reply, "bot");
+
 }
-
 
 // ======================
 // BACK BUTTON
@@ -200,3 +193,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         visitor.textContent = `👥 Visitors: ${fallback} (offline)`;
     }
 });
+if (hubby) {
+    hubby.addEventListener("click", openHubby);
+}
+
+if (closeHubby) {
+    closeHubby.addEventListener("click", closeHubbyChat);
+}
+
+if (hubbySend) {
+    hubbySend.addEventListener("click", handleHubbySend);
+}
+
+if (hubbyInput) {
+    hubbyInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            handleHubbySend();
+        }
+    });
+                    }
