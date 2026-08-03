@@ -45,7 +45,13 @@ const toolData = [
     { name: "URL Encoder / Decoder", url: "urltool.html", keywords: ["url", "encode", "decode", "link"] },
     { name: "Image Resizer", url: "resizer.html", keywords: ["image", "resize", "photo"] }
 ];
-
+// Hubby conversation memory
+let chatHistory = [
+    {
+        role: "system",
+        content: "You are Hubby AI, the friendly assistant for ToolHub. Be helpful, accurate, and concise. If someone asks about ToolHub's tools, answer using the tools available on the website."
+    }
+];
 function addHubbyMessage(text, type = "bot") {
     if (!hubbyMessages) return;
 
@@ -113,27 +119,47 @@ async function hubbyReply(userText) {
 
 }
 async function handleHubbySend() {
-
     if (!hubbyInput) return;
 
     const userText = hubbyInput.value.trim();
-
     if (!userText) return;
 
     addHubbyMessage(userText, "user");
-
     hubbyInput.value = "";
 
-    addHubbyMessage("🤔 Thinking...", "bot");
+    // Remember what the user said
+    chatHistory.push({
+        role: "user",
+        content: userText
+    });
 
-    const thinking = hubbyMessages.lastChild;
+    try {
+        const response = await fetch("https://broken-water-7b92.toolhub-help.workers.dev", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                messages: chatHistory
+            })
+        });
 
-    const reply = await hubbyReply(userText);
+        const data = await response.json();
 
-    thinking.remove();
+        const reply = data.reply || "I couldn't think of an answer.";
 
-    addHubbyMessage(reply, "bot");
+        addHubbyMessage(reply, "bot");
 
+        // Remember Hubby's reply
+        chatHistory.push({
+            role: "assistant",
+            content: reply
+        });
+
+    } catch (error) {
+        console.error(error);
+        addHubbyMessage("⚠️ Hubby is offline right now.", "bot");
+    }
 }
 
 // ======================
