@@ -29,21 +29,81 @@ const hubbySend = document.getElementById("hubby-send");
 const closeHubby = document.getElementById("closeHubby");
 
 const toolData = [
-    { name: "Password Generator", url: "password.html", keywords: ["password", "pass", "secure", "strong"] },
-    { name: "QR Code Generator", url: "qr.html", keywords: ["qr", "barcode", "code"] },
-    { name: "Word Counter", url: "wordcounter.html", keywords: ["word", "count", "characters", "character"] },
-    { name: "Age Calculator", url: "age.html", keywords: ["age", "birthday", "born"] },
-    { name: "Percentage Calculator", url: "percentage.html", keywords: ["percentage", "percent", "%"] },
-    { name: "Random Number", url: "random.html", keywords: ["random", "number"] },
-    { name: "Coin Flip", url: "coin.html", keywords: ["coin", "flip", "head", "tails"] },
-    { name: "Colour Picker", url: "color.html", keywords: ["colour", "color", "pick"] },
-    { name: "Unit Converter", url: "converter.html", keywords: ["unit", "convert", "converter"] },
-    { name: "Stopwatch & Timer", url: "stopwatch.html", keywords: ["stopwatch", "timer", "time"] },
-    { name: "Text Case Converter", url: "textcase.html", keywords: ["case", "upper", "lower", "title"] },
-    { name: "Character Counter", url: "charactercount.html", keywords: ["character", "letters", "count"] },
-    { name: "JSON Formatter", url: "jsonformatter.html", keywords: ["json", "format", "formatter"] },
-    { name: "URL Encoder / Decoder", url: "urltool.html", keywords: ["url", "encode", "decode", "link"] },
-    { name: "Image Resizer", url: "resizer.html", keywords: ["image", "resize", "photo"] }
+    {
+        name: "Password Generator",
+        url: "password.html",
+        keywords: ["password","generate password","strong password","secure password"]
+    },
+    {
+        name: "QR Code Generator",
+        url: "qr.html",
+        keywords: ["qr","qr code","barcode"]
+    },
+    {
+        name: "Word Counter",
+        url: "wordcounter.html",
+        keywords: ["word counter","count words","words"]
+    },
+    {
+        name: "Age Calculator",
+        url: "age.html",
+        keywords: ["age","birthday","calculate age"]
+    },
+    {
+        name: "Percentage Calculator",
+        url: "percentage.html",
+        keywords: ["percentage","percent","calculate percentage"]
+    },
+    {
+        name: "Random Number",
+        url: "random.html",
+        keywords: ["random number","random"]
+    },
+    {
+        name: "Coin Flip",
+        url: "coin.html",
+        keywords: ["coin","flip coin","heads","tails"]
+    },
+    {
+        name: "Colour Picker",
+        url: "color.html",
+        keywords: ["colour","color","pick color","hex"]
+    },
+    {
+        name: "Unit Converter",
+        url: "converter.html",
+        keywords: ["convert","unit","converter"]
+    },
+    {
+        name: "Stopwatch & Timer",
+        url: "stopwatch.html",
+        keywords: ["timer","stopwatch","countdown"]
+    },
+    {
+        name: "Text Case Converter",
+        url: "textcase.html",
+        keywords: ["uppercase","lowercase","title case","text case"]
+    },
+    {
+        name: "Character Counter",
+        url: "charactercount.html",
+        keywords: ["characters","letters","character counter"]
+    },
+    {
+        name: "JSON Formatter",
+        url: "jsonformatter.html",
+        keywords: ["json","format json","beautify json"]
+    },
+    {
+        name: "URL Encoder / Decoder",
+        url: "urltool.html",
+        keywords: ["url","encode","decode"]
+    },
+    {
+        name: "Image Resizer",
+        url: "resizer.html",
+        keywords: ["resize image","image","photo","resize photo"]
+    }
 ];
 // Hubby conversation memory
 let chatHistory = [
@@ -84,15 +144,25 @@ function closeHubbyChat() {
 }
 
 function findMatchingTool(text) {
-    const lower = text.toLowerCase();
+
+    const input = text.toLowerCase();
 
     for (const tool of toolData) {
-        if (tool.keywords.some(keyword => lower.includes(keyword))) {
-            return tool;
+
+        for (const keyword of tool.keywords) {
+
+            if (input.includes(keyword)) {
+
+                return tool;
+
+            }
+
         }
+
     }
 
     return null;
+
 }
 
 async function hubbyReply(userText) {
@@ -132,7 +202,22 @@ async function handleHubbySend() {
         role: "user",
         content: userText
     });
+const tool = findMatchingTool(userText);
 
+if (tool) {
+
+    addHubbyMessage(
+        `🛠️ I found the perfect tool!\nOpening ${tool.name}...`,
+        "bot"
+    );
+
+    setTimeout(() => {
+        window.location.href = tool.url;
+    }, 1500);
+
+    return;
+
+}
     try {
         const response = await fetch("https://broken-water-7b92.toolhub-help.workers.dev", {
             method: "POST",
