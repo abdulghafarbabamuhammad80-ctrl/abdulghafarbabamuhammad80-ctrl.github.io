@@ -215,14 +215,38 @@ Your name is Hubby.
 `
 }
 ];
-function addHubbyMessage(text, type = "bot") {
-    if (!hubbyMessages) return;
+function addHubbyMessage(text, type = "bot", typing = false) {
+    if (!hubbyMessages) return null;
 
     const msg = document.createElement("div");
     msg.className = `hubby-message ${type}`;
-    msg.textContent = text;
+
     hubbyMessages.appendChild(msg);
+
     hubbyMessages.scrollTop = hubbyMessages.scrollHeight;
+
+    if (!typing) {
+        msg.textContent = text;
+        return msg;
+    }
+
+    let i = 0;
+
+    const speed = 15;
+
+    const interval = setInterval(() => {
+        msg.textContent += text.charAt(i);
+        i++;
+
+        hubbyMessages.scrollTop = hubbyMessages.scrollHeight;
+
+        if (i >= text.length) {
+            clearInterval(interval);
+        }
+
+    }, speed);
+
+    return msg;
 }
 
 function openHubby() {
@@ -336,7 +360,7 @@ if (tool) {
 
         const reply = data.reply || "I couldn't think of an answer.";
 
-        addHubbyMessage(reply, "bot");
+        addHubbyMessage(reply, "bot", true);
 
         // Remember Hubby's reply
         chatHistory.push({
