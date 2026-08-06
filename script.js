@@ -248,7 +248,15 @@ function addHubbyMessage(text, type = "bot", typing = false) {
 
     return msg;
 }
+function showThinking() {
+    return addHubbyMessage("💭 Thinking...", "bot");
+}
 
+function removeThinking(element) {
+    if (element) {
+        element.remove();
+    }
+}
 function openHubby() {
     if (!hubbyOverlay) return;
 
@@ -346,6 +354,7 @@ if (tool) {
 
 }
     try {
+        const thinking = showThinking();
         const response = await fetch("https://broken-water-7b92.toolhub-help.workers.dev", {
             method: "POST",
             headers: {
@@ -357,7 +366,7 @@ if (tool) {
         });
 
         const data = await response.json();
-
+        removeThinking(thinking);
         const reply = data.reply || "I couldn't think of an answer.";
 
         addHubbyMessage(reply, "bot", true);
@@ -370,6 +379,7 @@ if (tool) {
 
     } catch (error) {
         console.error(error);
+       removeThinking(thinking);
         addHubbyMessage("⚠️ Hubby is offline right now.", "bot");
     }
 }
