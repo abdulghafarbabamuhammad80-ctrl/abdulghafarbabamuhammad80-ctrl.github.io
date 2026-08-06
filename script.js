@@ -249,13 +249,32 @@ function addHubbyMessage(text, type = "bot", typing = false) {
     return msg;
 }
 function showThinking() {
-    return addHubbyMessage("💭 Thinking...", "bot");
+    const msg = document.createElement("div");
+
+    msg.className = "hubby-message bot";
+    msg.textContent = "💭 Thinking.";
+
+    hubbyMessages.appendChild(msg);
+
+    let dots = 1;
+
+    msg.thinkingInterval = setInterval(() => {
+        dots++;
+
+        if (dots > 3) dots = 1;
+
+        msg.textContent = "💭 Thinking" + ".".repeat(dots);
+    }, 500);
+
+    return msg;
 }
 
-function removeThinking(element) {
-    if (element) {
-        element.remove();
-    }
+function removeThinking(msg) {
+    if (!msg) return;
+
+    clearInterval(msg.thinkingInterval);
+
+    msg.remove();
 }
 function openHubby() {
     if (!hubbyOverlay) return;
@@ -353,8 +372,9 @@ if (tool) {
     return;
 
 }
-    try {
-        const thinking = showThinking();
+    let thinking = showThinking();
+
+try {
         const response = await fetch("https://broken-water-7b92.toolhub-help.workers.dev", {
             method: "POST",
             headers: {
