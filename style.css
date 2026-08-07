@@ -31,7 +31,19 @@
     box-sizing:border-box;
     font-family:"Poppins",sans-serif;
 }
+html{
 
+scroll-behavior:smooth;
+
+}
+
+body{
+
+overflow-x:hidden;
+
+scrollbar-gutter:stable;
+
+}
 html{
     scroll-behavior:smooth;
 }
@@ -177,7 +189,10 @@ main{
     background:var(--card);
     backdrop-filter:blur(18px);
     border:1px solid rgba(255,255,255,.08);
-    transition:.35s;
+    transition:
+transform .45s cubic-bezier(.22,1,.36,1),
+box-shadow .45s,
+border-color .45s;
     box-shadow:
     0 10px 30px rgba(0,0,0,.35);
 }
@@ -299,73 +314,108 @@ box-shadow:
 
 }
 
+.tool-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+
+padding:15px 30px;
+
+border-radius:999px;
+
+text-decoration:none;
+
+font-weight:700;
+
+font-size:16px;
+
+color:white;
+
+background:linear-gradient(
+135deg,
+#00d4ff,
+#0077ff,
+#8b5cf6
+);
+
+background-size:300% 300%;
+
+animation:
+buttonFlow 5s linear infinite,
+buttonFloat 3s ease-in-out infinite;
+
+box-shadow:
+0 0 15px rgba(0,212,255,.45);
+
+transition:.35s;
+
+position:relative;
+
+overflow:hidden;
+}
+
+.tool-btn::before{
+
+content:"";
+
+position:absolute;
+
+left:-120%;
+
+top:0;
+
+width:60%;
+
+height:100%;
+
+background:rgba(255,255,255,.35);
+
+transform:skewX(-25deg);
+
+transition:.6s;
+
+}
+
+.tool-btn:hover::before{
+
+left:150%;
+
+}
+
+.tool-btn:hover{
+
+transform:
+translateY(-4px)
+scale(1.08);
+
+box-shadow:
+
+0 0 20px #00d4ff,
+
+0 0 40px #0077ff,
+
+0 0 70px #8b5cf6;
+
+}
+
 .tool-btn:active{
 
-transform:scale(.96);
+transform:scale(.95);
 
 }
 
-.tool-card:nth-child(odd){
+@keyframes buttonFlow{
 
-animation:floatOne 6s ease-in-out infinite;
+0%{
 
-}
-
-.tool-card:nth-child(even){
-
-animation:floatTwo 7s ease-in-out infinite;
+background-position:0% 50%;
 
 }
 
-@keyframes floatOne{
+100%{
 
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-8px);
-
-}
-
-}
-
-@keyframes floatTwo{
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(8px);
-
-}
-
-}
-
-@media(max-width:768px){
-
-.hero h1{
-
-font-size:48px;
-
-}
-
-.hero p{
-
-font-size:17px;
-
-}
-
-main{
-
-grid-template-columns:1fr;
+background-position:300% 50%;
 
 }
 
@@ -812,3 +862,14 @@ filter:drop-shadow(0 0 8px #00d4ff);
 animation:glow 3s infinite;
 
    }
+@keyframes buttonFloat{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-3px);
+}
+
+}
