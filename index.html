@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>🛠️ ToolHub | Free Online Tools</title>
 
@@ -14,7 +14,7 @@ content="width=device-width,initial-scale=1.0">
 content="ToolHub - Free online tools powered by Hubby AI">
 
 <meta name="theme-color"
-content="#0f172a">
+content="#05070d">
 
 <link rel="stylesheet"
 href="style.css">
@@ -27,384 +27,693 @@ crossorigin="anonymous"></script>
 
 <body>
 
-<header class="hero">
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-<div class="hero-bg"></div>
+<header>
 
-<nav class="navbar">
+    <div class="logo">
 
-<div class="logo">
+        🛠️ ToolHub
 
-🛠️ ToolHub
+        <span class="by">
+            BY ABDULGHAFAR
+        </span>
 
-</div>
+    </div>
 
-<button id="hubby-open">
+    <div class="status">
 
-Hubby AI
+        <span class="dot"></span>
 
-</button>
+        Hubby AI ready
 
-</nav>
-
-<section class="hero-content">
-
-<h1>
-
-Powerful Online Tools
-
-</h1>
-
-<p>
-
-Everything you need.
-
-Fast.
-
-Free.
-
-No downloads.
-
-Powered by Hubby AI.
-
-</p>
-
-
-<div class="search-box">
-
-    <input
-        type="text"
-        id="search"
-        placeholder="🔍 Search for a tool..."
-        autocomplete="off"
-    >
-
-    <button id="search-button">
-        Search
-    </button>
-
-</div>
-
-</section>
+    </div>
 
 </header>
 
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <h1>
+
+        Powerful online tools.
+
+        <br>
+
+        <span class="accent">
+            Fast. Free. No downloads.
+        </span>
+
+    </h1>
+
+    <p>
+
+        Everything you need in one place.
+        Search for a tool and get things done instantly.
+
+    </p>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔍 Search for a tool..."
+            autocomplete="off"
+            aria-label="Search for a tool"
+        >
+
+        <button
+            id="search-button"
+            type="button"
+        >
+            Search
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOOLS SECTION
+===================================================== -->
+
+<div class="section-label">
+
+    Tools · 15 available
+
+</div>
+
+
 <main id="tools">
 
-<div class="tool-grid">
+    <div class="tool-grid">
 
-<div class="tool-card">
 
-<h2>🔑 Password Generator</h2>
+        <!-- PASSWORD -->
 
-<p>Create secure passwords instantly.</p>
+        <a
+            class="tool-card"
+            href="password.html"
+        >
 
-<a href="password.html">
+            <span class="tag amber">
+                PWD
+            </span>
 
-Open Tool →
+            <span class="icon">
+                🔑
+            </span>
 
-</a>
+            <h2>
+                Password Generator
+            </h2>
 
-</div>
+            <p>
+                Create secure passwords instantly.
+            </p>
 
-<div class="tool-card">
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-<h2>📱 QR Generator</h2>
+        </a>
 
-<p>Create QR codes instantly.</p>
 
-<a href="qr.html">
+        <!-- QR -->
 
-Open Tool →
+        <a
+            class="tool-card"
+            href="qr.html"
+        >
 
-</a>
+            <span class="tag rust">
+                QR
+            </span>
 
-</div>
+            <span class="icon">
+                📱
+            </span>
 
-<div class="tool-card">
+            <h2>
+                QR Generator
+            </h2>
 
-<h2>📝 Word Counter</h2>
+            <p>
+                Create QR codes instantly.
+            </p>
 
-<p>Count words and characters.</p>
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-<a href="wordcounter.html">
+        </a>
 
-Open Tool →
 
-</a>
+        <!-- WORD COUNTER -->
 
-</div>
+        <a
+            class="tool-card"
+            href="wordcounter.html"
+        >
 
-<div class="tool-card">
+            <span class="tag teal">
+                WRD
+            </span>
 
-<h2>🎂 Age Calculator</h2>
+            <span class="icon">
+                📝
+            </span>
 
-<p>Calculate your exact age.</p>
+            <h2>
+                Word Counter
+            </h2>
 
-<a href="age.html">
+            <p>
+                Count words and characters.
+            </p>
 
-Open Tool →
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-</a>
+        </a>
 
-</div>
 
-<div class="tool-card">
+        <!-- AGE -->
 
-<h2>📊 Percentage Calculator</h2>
+        <a
+            class="tool-card"
+            href="age.html"
+        >
 
-<p>Quick percentage calculations.</p>
+            <span class="tag amber">
+                AGE
+            </span>
 
-<a href="percentage.html">
+            <span class="icon">
+                🎂
+            </span>
 
-Open Tool →
+            <h2>
+                Age Calculator
+            </h2>
 
-</a>
+            <p>
+                Calculate your exact age.
+            </p>
 
-</div>
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-<div class="tool-card">
+        </a>
 
-<h2>🎲 Random Number</h2>
 
-<p>Generate random numbers.</p>
+        <!-- PERCENTAGE -->
 
-<a href="random.html">
+        <a
+            class="tool-card"
+            href="percentage.html"
+        >
 
-Open Tool →
+            <span class="tag rust">
+                PCT
+            </span>
 
-</a>
+            <span class="icon">
+                📊
+            </span>
 
-  </div>
-  <div class="tool-card">
+            <h2>
+                Percentage Calculator
+            </h2>
 
-<h2>🪙 Coin Flip</h2>
+            <p>
+                Quick percentage calculations.
+            </p>
 
-<p>Flip a virtual coin instantly.</p>
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-<a href="coin.html">
+        </a>
 
-Open Tool →
 
-</a>
+        <!-- RANDOM -->
 
-</div>
+        <a
+            class="tool-card"
+            href="random.html"
+        >
 
-<div class="tool-card">
+            <span class="tag teal">
+                RND
+            </span>
 
-<h2>🎨 Colour Picker</h2>
+            <span class="icon">
+                🎲
+            </span>
 
-<p>Choose and copy beautiful colours.</p>
+            <h2>
+                Random Number
+            </h2>
 
-<a href="color.html">
+            <p>
+                Generate random numbers.
+            </p>
 
-Open Tool →
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-</a>
+        </a>
 
-</div>
 
-<div class="tool-card">
+        <!-- COIN -->
 
-<h2>📏 Unit Converter</h2>
+        <a
+            class="tool-card"
+            href="coin.html"
+        >
 
-<p>Convert units instantly.</p>
+            <span class="tag amber">
+                CFL
+            </span>
 
-<a href="converter.html">
+            <span class="icon">
+                🪙
+            </span>
 
-Open Tool →
+            <h2>
+                Coin Flip
+            </h2>
 
-</a>
+            <p>
+                Flip a virtual coin instantly.
+            </p>
 
-</div>
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-<div class="tool-card">
+        </a>
 
-<h2>⏱️ Stopwatch & Timer</h2>
 
-<p>Measure time with precision.</p>
+        <!-- COLOR -->
 
-<a href="stopwatch.html">
+        <a
+            class="tool-card"
+            href="color.html"
+        >
 
-Open Tool →
+            <span class="tag rust">
+                CLR
+            </span>
 
-</a>
+            <span class="icon">
+                🎨
+            </span>
 
-</div>
+            <h2>
+                Colour Picker
+            </h2>
 
-<div class="tool-card">
+            <p>
+                Choose and copy beautiful colours.
+            </p>
 
-<h2>📝 Text Case Converter</h2>
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-<p>Uppercase, lowercase and title case.</p>
+        </a>
 
-<a href="textcase.html">
 
-Open Tool →
+        <!-- CONVERTER -->
 
-</a>
+        <a
+            class="tool-card"
+            href="converter.html"
+        >
 
-</div>
+            <span class="tag teal">
+                UNT
+            </span>
 
-<div class="tool-card">
+            <span class="icon">
+                📏
+            </span>
 
-<h2>🔤 Character Counter</h2>
+            <h2>
+                Unit Converter
+            </h2>
 
-<p>Count letters, words and characters.</p>
+            <p>
+                Convert units instantly.
+            </p>
 
-<a href="charactercount.html">
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-Open Tool →
+        </a>
 
-</a>
 
-</div>
+        <!-- STOPWATCH -->
 
-<div class="tool-card">
+        <a
+            class="tool-card"
+            href="stopwatch.html"
+        >
 
-<h2>🧾 JSON Formatter</h2>
+            <span class="tag amber">
+                TMR
+            </span>
 
-<p>Beautify messy JSON.</p>
+            <span class="icon">
+                ⏱️
+            </span>
 
-<a href="jsonformatter.html">
+            <h2>
+                Stopwatch & Timer
+            </h2>
 
-Open Tool →
+            <p>
+                Measure time with precision.
+            </p>
 
-</a>
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-</div>
+        </a>
 
-<div class="tool-card">
 
-<h2>🔗 URL Encoder / Decoder</h2>
+        <!-- TEXT CASE -->
 
-<p>Encode and decode URLs safely.</p>
+        <a
+            class="tool-card"
+            href="textcase.html"
+        >
 
-<a href="urltool.html">
+            <span class="tag rust">
+                TXT
+            </span>
 
-Open Tool →
+            <span class="icon">
+                📝
+            </span>
 
-</a>
+            <h2>
+                Text Case Converter
+            </h2>
 
-</div>
+            <p>
+                Uppercase, lowercase and title case.
+            </p>
 
-<div class="tool-card">
+            <span class="tool-btn">
+                Open Tool →
+            </span>
 
-<h2>🖼️ Image Resizer</h2>
+        </a>
 
-<p>Resize your images instantly.</p>
 
-<a href="resizer.html">
+        <!-- CHARACTER -->
 
-Open Tool →
+        <a
+            class="tool-card"
+            href="charactercount.html"
+        >
 
-</a>
+            <span class="tag teal">
+                CHR
+            </span>
 
-</div>
+            <span class="icon">
+                🔤
+            </span>
 
-</div>
+            <h2>
+                Character Counter
+            </h2>
+
+            <p>
+                Count letters, words and characters.
+            </p>
+
+            <span class="tool-btn">
+                Open Tool →
+            </span>
+
+        </a>
+
+
+        <!-- JSON -->
+
+        <a
+            class="tool-card"
+            href="jsonformatter.html"
+        >
+
+            <span class="tag amber">
+                JSN
+            </span>
+
+            <span class="icon">
+                🧾
+            </span>
+
+            <h2>
+                JSON Formatter
+            </h2>
+
+            <p>
+                Beautify messy JSON.
+            </p>
+
+            <span class="tool-btn">
+                Open Tool →
+            </span>
+
+        </a>
+
+
+        <!-- URL -->
+
+        <a
+            class="tool-card"
+            href="urltool.html"
+        >
+
+            <span class="tag rust">
+                URL
+            </span>
+
+            <span class="icon">
+                🔗
+            </span>
+
+            <h2>
+                URL Encoder / Decoder
+            </h2>
+
+            <p>
+                Encode and decode URLs safely.
+            </p>
+
+            <span class="tool-btn">
+                Open Tool →
+            </span>
+
+        </a>
+
+
+        <!-- IMAGE -->
+
+        <a
+            class="tool-card"
+            href="resizer.html"
+        >
+
+            <span class="tag teal">
+                IMG
+            </span>
+
+            <span class="icon">
+                🖼️
+            </span>
+
+            <h2>
+                Image Resizer
+            </h2>
+
+            <p>
+                Resize your images instantly.
+            </p>
+
+            <span class="tool-btn">
+                Open Tool →
+            </span>
+
+        </a>
+
+    </div>
 
 </main>
 
-<!-- Hubby -->
 
-<div id="hubby">
-    <img src="hubby-logo.png" alt="Hubby AI">
+<!-- =====================================================
+     HUBBY AI
+===================================================== -->
+
+<div
+    id="hubby"
+    title="Open Hubby AI"
+    role="button"
+    tabindex="0"
+>
+
+    <img
+        src="hubby-logo.png"
+        alt="Hubby AI"
+    >
+
 </div>
+
+
+<!-- =====================================================
+     HUBBY OVERLAY
+===================================================== -->
 
 <div id="hubby-overlay">
 
-<div id="hubby-window">
+    <div id="hubby-window">
 
-<div id="hubby-top">
 
-<div>
+        <div id="hubby-top">
 
-<h2>Hubby AI</h2>
+            <div>
 
-<p>Your intelligent assistant</p>
+                <h2>
+                    Hubby AI
+                </h2>
+
+                <p>
+                    Your intelligent assistant
+                </p>
+
+            </div>
+
+
+            <button
+                id="closeHubby"
+                type="button"
+                aria-label="Close Hubby"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div id="hubby-messages">
+
+            <div class="hubby-message bot">
+
+                👋 Hello, human!
+
+                <br><br>
+
+                I'm Hubby AI.
+
+                <br>
+
+                How can I help today?
+
+            </div>
+
+        </div>
+
+
+        <div id="hubby-bottom">
+
+            <input
+                id="hubby-input"
+                type="text"
+                placeholder="Ask Hubby anything..."
+                autocomplete="off"
+            >
+
+            <button
+                id="hubby-send"
+                type="button"
+                aria-label="Send message"
+            >
+                ➜
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-<button id="closeHubby">
 
-✕
-
-</button>
-
-</div>
-
-<div id="hubby-messages">
-
-<div class="hubby-message bot">
-
-👋 Hello, human!
-
-I'm Hubby AI.
-
-How can I help today?
-
-</div>
-
-</div>
-
-<div id="hubby-bottom">
-
-<input
-id="hubby-input"
-placeholder="Ask Hubby anything...">
-
-<button id="hubby-send">
-
-➜
-
-</button>
-
-</div>
-
-</div>
-
-</div>
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
-<p>
+    <p>
+        © 2026 ToolHub • Built with ❤️ by Abdulghafar
+    </p>
 
-© 2026 ToolHub • Built with ❤️ by Abdulghafar
+    <div class="footer-links">
 
-</p>
+        <a href="about.html">
+            About
+        </a>
 
-<div class="footer-links">
+        <a href="privacy.html">
+            Privacy
+        </a>
 
-<a href="about.html">
+        <a href="contact.html">
+            Contact
+        </a>
 
-About
-
-</a>
-
-<a href="privacy.html">
-
-Privacy
-
-</a>
-
-<a href="contact.html">
-
-Contact
-
-</a>
-
-</div>
+    </div>
 
 </footer>
 
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script src="hubbybrain.js"></script>
+
 <script src="tools.js"></script>
+
 <script src="search.js"></script>
-<script src="visitor.js"></script>
+
 <script src="hubby.js"></script>
+
 <script src="script.js"></script>
 
 </body>
 
-  </html>
+                </html>
