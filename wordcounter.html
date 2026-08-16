@@ -1,83 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Word Counter | ToolHub</title>
+    <meta charset="UTF-8">
 
-<link rel="stylesheet" href="wordcounter.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ToolHub Word Counter — Count words, characters, sentences, paragraphs and analyze your writing instantly."
+    >
+
+    <meta
+        name="theme-color"
+        content="#05070d"
+    >
+
+    <title>Word Counter | ToolHub</title>
+
+    <link
+        rel="stylesheet"
+        href="wordcounter.css"
+    >
 
 </head>
+
 <body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
-<h1>📝 Word Counter</h1>
+    <div class="header-content">
 
-<p>Count words, characters and reading time instantly.</p>
+        <div>
 
-<a href="index.html" class="home-btn">
-← Back to ToolHub
-</a>
+            <h1>📝 Word Counter</h1>
+
+            <p>
+                Count, analyze and understand your text instantly.
+            </p>
+
+        </div>
+
+        <a
+            href="index.html"
+            class="home-btn"
+        >
+            ← Back to ToolHub
+        </a>
+
+    </div>
 
 </header>
 
-<div class="container">
 
-<textarea
-id="text"
-placeholder="Start typing or paste your text here..."></textarea>
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-<div class="buttons">
+<main class="container">
 
-<button id="copyBtn">
-📋 Copy
-</button>
 
-<button id="clearBtn">
-🗑️ Clear
-</button>
+    <!-- =================================================
+         TEXT EDITOR
+    ================================================== -->
 
-</div>
+    <section class="editor-section">
 
-<div class="stats">
+        <div class="section-heading">
 
-<div class="card">
-<h3 id="words">0</h3>
-<p>Words</p>
-</div>
+            <div>
 
-<div class="card">
-<h3 id="characters">0</h3>
-<p>Characters</p>
-</div>
+                <h2>✍️ Your Text</h2>
 
-<div class="card">
-<h3 id="noSpaces">0</h3>
-<p>No Spaces</p>
-</div>
+                <p>
+                    Start typing, paste text, or drag text into the box.
+                </p>
 
-<div class="card">
-<h3 id="sentences">0</h3>
-<p>Sentences</p>
-</div>
+            </div>
 
-<div class="card">
-<h3 id="paragraphs">0</h3>
-<p>Paragraphs</p>
-</div>
+            <span id="textStatus">
+                ● Ready
+            </span>
 
-<div class="card">
-<h3 id="reading">0 min</h3>
-<p>Reading Time</p>
-</div>
+        </div>
 
-</div>
 
-</div>
+        <textarea
+            id="text"
+            placeholder="Start typing or paste your text here..."
+            spellcheck="true"
+            autocomplete="off"
+        ></textarea>
+
+
+        <!-- Progress -->
+
+        <div class="writing-progress">
+
+            <div class="progress-header">
+
+                <span>
+                    Writing Progress
+                </span>
+
+                <span>
+                    <strong id="textProgressValue">
+                        0
+                    </strong>
+                    words
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div id="textProgress"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                id="copyBtn"
+            >
+                📋 Copy
+            </button>
+
+            <button
+                type="button"
+                id="clearBtn"
+            >
+                🗑️ Clear
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         BASIC STATISTICS
+    ================================================== -->
+
+    <section class="statistics">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>📊 Text Statistics</h2>
+
+                <p>
+                    Your text analyzed in real time.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stats">
+
+
+            <div class="stat-card">
+
+                <span>📝</span>
+
+                <strong id="words">
+                    0
+                </strong>
+
+                <p>Words</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>🔤</span>
+
+                <strong id="characters">
+                    0
+                </strong>
+
+                <p>Characters</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>🚫</span>
+
+                <strong id="noSpaces">
+                    0
+                </strong>
+
+                <p>No Spaces</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>📖</span>
+
+                <strong id="sentences">
+                    0
+                </strong>
+
+                <p>Sentences</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>📑</span>
+
+                <strong id="paragraphs">
+                    0
+                </strong>
+
+                <p>Paragraphs</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>⏱️</span>
+
+                <strong id="reading">
+                    0 min
+                </strong>
+
+                <p>Reading Time</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ADVANCED ANALYSIS
+    ================================================== -->
+
+    <section class="advanced-analysis">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>🧠 Advanced Analysis</h2>
+
+                <p>
+                    Get deeper information about your writing.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="advanced-grid">
+
+
+            <div class="analysis-card">
+
+                <span>🔁</span>
+
+                <strong id="uniqueWords">
+                    0
+                </strong>
+
+                <p>
+                    Unique Words
+                </p>
+
+            </div>
+
+
+            <div class="analysis-card">
+
+                <span>📏</span>
+
+                <strong id="averageWordLength">
+                    0
+                </strong>
+
+                <p>
+                    Average Word Length
+                </p>
+
+            </div>
+
+
+            <div class="analysis-card">
+
+                <span>🏆</span>
+
+                <strong
+                    id="longestWord"
+                    class="long-word"
+                >
+                    —
+                </strong>
+
+                <p>
+                    Longest Word
+                </p>
+
+            </div>
+
+
+            <div class="analysis-card">
+
+                <span>🔢</span>
+
+                <strong id="numbers">
+                    0
+                </strong>
+
+                <p>
+                    Numbers
+                </p>
+
+            </div>
+
+
+            <div class="analysis-card">
+
+                <span>🔠</span>
+
+                <strong id="letters">
+                    0
+                </strong>
+
+                <p>
+                    Letters
+                </p>
+
+            </div>
+
+
+            <div class="analysis-card">
+
+                <span>0️⃣</span>
+
+                <strong id="digits">
+                    0
+                </strong>
+
+                <p>
+                    Digits
+                </p>
+
+            </div>
+
+
+            <div class="analysis-card">
+
+                <span>⬜</span>
+
+                <strong id="spaces">
+                    0
+                </strong>
+
+                <p>
+                    Spaces
+                </p>
+
+            </div>
+
+
+            <div class="analysis-card">
+
+                <span>🎤</span>
+
+                <strong id="speakingTime">
+                    0 min
+                </strong>
+
+                <p>
+                    Speaking Time
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         WRITING SUMMARY
+    ================================================== -->
+
+    <section class="writing-summary">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>📚 Writing Summary</h2>
+
+                <p>
+                    A quick overview of your text.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div>
+
+                <span>Words</span>
+
+                <strong id="summaryWords">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Sentences</span>
+
+                <strong id="summarySentences">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Paragraphs</span>
+
+                <strong id="summaryParagraphs">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Reading</span>
+
+                <strong id="summaryReading">
+                    0 min
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         WORD FREQUENCY
+    ================================================== -->
+
+    <section class="frequency-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>🔁 Repeated Words</h2>
+
+                <p>
+                    Words that appear more than once in your text.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="wordFrequency">
+
+            <div class="empty-frequency">
+
+                <span>🔍</span>
+
+                <p>
+                    Start typing to analyze repeated words.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         KEYBOARD SHORTCUTS
+    ================================================== -->
+
+    <section class="shortcuts">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>⌨️ Keyboard Shortcuts</h2>
+
+                <p>
+                    Work faster with ToolHub.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="shortcut-grid">
+
+
+            <div class="shortcut-card">
+
+                <kbd>Ctrl</kbd>
+                <span>+</span>
+                <kbd>Enter</kbd>
+
+                <p>
+                    Copy text
+                </p>
+
+            </div>
+
+
+            <div class="shortcut-card">
+
+                <kbd>Ctrl</kbd>
+                <span>+</span>
+                <kbd>Shift</kbd>
+                <span>+</span>
+                <kbd>X</kbd>
+
+                <p>
+                    Clear text
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PRIVACY
+    ================================================== -->
+
+    <section class="privacy-info">
+
+        <div class="privacy-icon">
+            🔒
+        </div>
+
+        <div>
+
+            <h2>Your Text Stays Private</h2>
+
+            <p>
+                Your text is processed directly in your browser.
+                ToolHub does not need to upload your writing
+                to a server for counting and analysis.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 ToolHub • Word Counter
+    </p>
+
+    <p>
+        Write smarter. Analyze faster. 📝
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script src="wordcounter.js"></script>
 
 </body>
-</html>
+
+  </html>
