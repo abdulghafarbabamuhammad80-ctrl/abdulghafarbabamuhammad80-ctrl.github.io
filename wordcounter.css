@@ -1,80 +1,211 @@
+/* =========================================================
+   WORD COUNTER — NEON HUD EDITION 🎮⚡
+   Matches style.css / password.css / qrcode.css
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+:root{
+    --blue:#00e5ff;
+    --cyan:#4dd0ff;
+    --purple:#b026ff;
+    --pink:#ff2f92;
+
+    --text:#eaf2ff;
+    --muted:#7a8bab;
+
+    --glass:rgba(15,20,36,.62);
+    --border:rgba(0,229,255,.25);
+}
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Inter',sans-serif;
 }
 
 body{
-    background:#f4f7fb;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(0,229,255,.14),transparent 32%),
+        radial-gradient(circle at 90% 15%,rgba(176,38,255,.14),transparent 30%),
+        radial-gradient(circle at 50% 90%,rgba(255,47,146,.10),transparent 38%),
+        linear-gradient(135deg,#05070d,#080b14 45%,#05070d);
+
     display:flex;
     flex-direction:column;
     align-items:center;
+
     min-height:100vh;
 }
 
+/* =========================================================
+   HEADER
+========================================================= */
+
 header{
     width:100%;
-    background:linear-gradient(135deg,#007bff,#00b4ff);
-    color:white;
+
+    background:linear-gradient(110deg,rgba(0,229,255,.18),rgba(176,38,255,.16));
+
+    color:var(--text);
+
     text-align:center;
+
     padding:40px 20px;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
+
+    border-bottom:1px solid var(--border);
+
+    box-shadow:0 8px 30px rgba(0,229,255,.10);
 }
 
 header h1{
+    font-family:'Chakra Petch',sans-serif;
+    font-weight:700;
+
     font-size:38px;
     margin-bottom:10px;
 }
 
 header p{
+    color:var(--muted);
+
     margin-bottom:20px;
 }
 
 .home-btn{
     display:inline-block;
-    background:white;
-    color:#007bff;
+
+    background:linear-gradient(110deg,var(--blue),var(--purple));
+
+    color:#04121a;
+
     text-decoration:none;
+
     padding:10px 20px;
-    border-radius:30px;
-    font-weight:bold;
+
+    border-radius:0;
+
+    clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+
     transition:.3s;
 }
 
 .home-btn:hover{
     transform:scale(1.05);
+
+    box-shadow:0 8px 22px rgba(0,229,255,.3);
 }
+
+/* =========================================================
+   CONTAINER
+   (color set here so every plain heading/paragraph inside —
+   Writing Summary, Keyboard Shortcuts, Privacy note, etc. —
+   stays readable on the dark panel even without its own class)
+========================================================= */
 
 .container{
     width:90%;
     max-width:900px;
-    background:white;
+
+    background:
+        linear-gradient(
+            160deg,
+            var(--glass),
+            rgba(10,14,26,.4)
+        );
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
     margin:40px auto;
+
     padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
+
+    border-radius:0;
+
+    clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px));
+
+    border:1px solid var(--border);
+
+    box-shadow:
+        0 20px 50px rgba(0,229,255,.10),
+        inset 0 1px 0 rgba(0,229,255,.06);
+
+    color:var(--text);
 }
+
+.container h2{
+    font-family:'Chakra Petch',sans-serif;
+    font-weight:600;
+
+    color:var(--text);
+
+    margin:28px 0 8px;
+}
+
+.container > h2:first-child{
+    margin-top:0;
+}
+
+.container p{
+    color:var(--muted);
+
+    line-height:1.6;
+}
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
 
 textarea{
     width:100%;
     height:220px;
+
     resize:none;
+
     padding:15px;
-    font-size:16px;
-    border:2px solid #ddd;
-    border-radius:12px;
+
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+
+    color:var(--text);
+
+    background:rgba(6,9,16,.6);
+
+    border:1px solid var(--border);
+    border-radius:4px;
+
     outline:none;
+
     margin-bottom:20px;
+
+    transition:.25s;
+}
+
+textarea::placeholder{
+    color:var(--muted);
 }
 
 textarea:focus{
-    border-color:#007bff;
+    border-color:rgba(0,229,255,.6);
+    box-shadow:0 0 0 3px rgba(0,229,255,.12);
 }
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .buttons{
     display:flex;
     gap:15px;
+
     margin-bottom:25px;
 }
 
@@ -84,39 +215,93 @@ textarea:focus{
 
 button{
     padding:14px;
+
     border:none;
-    border-radius:12px;
-    background:#007bff;
-    color:white;
+    border-radius:0;
+
+    clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+
+    background:linear-gradient(110deg,var(--blue),var(--cyan),var(--purple));
+    background-size:200% 200%;
+
+    color:#04121a;
+
     cursor:pointer;
-    font-size:16px;
+
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+
     transition:.3s;
 }
 
 button:hover{
-    background:#005fd1;
+    background-position:100% 50%;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 26px rgba(0,229,255,.3);
 }
+
+/* =========================================================
+   STATS GRID (Text Statistics + Advanced Analysis)
+========================================================= */
 
 .stats{
     display:grid;
+
     grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+
     gap:15px;
-}
 
-.card{
-    background:#f8f9fa;
-    border-radius:15px;
-    padding:20px;
-    text-align:center;
-    box-shadow:0 5px 10px rgba(0,0,0,.08);
-}
-
-.card h3{
-    font-size:30px;
-    color:#007bff;
     margin-bottom:10px;
 }
 
+.card{
+    background:rgba(6,9,16,.55);
+
+    border:1px solid var(--border);
+    border-radius:0;
+
+    clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,229,255,.06);
+
+    transition:.3s ease;
+}
+
+.card:hover{
+    border-color:rgba(0,229,255,.5);
+
+    transform:translateY(-3px);
+
+    box-shadow:0 14px 30px rgba(0,229,255,.14);
+}
+
+.card h3{
+    font-family:'Chakra Petch',sans-serif;
+
+    font-size:28px;
+
+    color:var(--blue);
+
+    margin-bottom:8px;
+
+    text-shadow:0 0 14px rgba(0,229,255,.4);
+}
+
 .card p{
-    color:#555;
+    color:var(--muted);
+
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
 }
