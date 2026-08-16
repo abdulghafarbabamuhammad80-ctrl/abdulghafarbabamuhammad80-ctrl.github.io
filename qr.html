@@ -1,51 +1,774 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QR Code Generator | ToolHub</title>
 
-<link rel="stylesheet" href="qr.css">
+    <meta charset="UTF-8">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>QR Code Generator | ToolHub</title>
+
+    <meta
+        name="description"
+        content="Create, customize, download and share QR codes instantly with ToolHub."
+    >
+
+    <meta
+        name="theme-color"
+        content="#05070d"
+    >
+
+    <link rel="stylesheet" href="qr.css">
+
+    <!-- QR CODE LIBRARY -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        defer
+    ></script>
 
 </head>
+
 <body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
-<h1>📱 QR Code Generator</h1>
+    <div class="header-content">
 
-<p>Create QR codes instantly.</p>
+        <div>
 
-<a href="index.html" class="home-btn">← Back to ToolHub</a>
+            <h1>📱 QR Code Generator</h1>
+
+            <p>
+                Create, customize, download and share
+                QR codes instantly.
+            </p>
+
+        </div>
+
+        <a
+            href="index.html"
+            class="home-btn"
+        >
+            ← Back to ToolHub
+        </a>
+
+    </div>
 
 </header>
 
-<div class="container">
 
-<input
-type="text"
-id="qrText"
-placeholder="Enter text or website link">
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
 
-<div id="qrcode"></div>
+<main class="container">
 
-<button id="generateBtn">
-⚡ Generate QR Code
-</button>
 
-<button id="downloadBtn">
-💾 Download QR Code
-</button>
+    <!-- =================================================
+         INPUT SECTION
+    ================================================== -->
 
-<button id="clearBtn">
-🗑️ Clear
-</button>
+    <section class="qr-input-section">
 
-</div>
+        <div class="section-heading">
 
-<script src="qr.js"></script>
+            <div>
+
+                <h2>✏️ QR Content</h2>
+
+                <p>
+                    Enter anything you want your QR code to contain.
+                </p>
+
+            </div>
+
+            <span id="qrStatus">
+                ● Ready
+            </span>
+
+        </div>
+
+
+        <!-- QUICK TYPES -->
+
+        <div class="quick-types">
+
+            <button
+                type="button"
+                class="type-btn active"
+                data-type="text"
+            >
+                📝 Text
+            </button>
+
+            <button
+                type="button"
+                class="type-btn"
+                data-type="url"
+            >
+                🔗 Website
+            </button>
+
+            <button
+                type="button"
+                class="type-btn"
+                data-type="email"
+            >
+                📧 Email
+            </button>
+
+            <button
+                type="button"
+                class="type-btn"
+                data-type="phone"
+            >
+                📞 Phone
+            </button>
+
+            <button
+                type="button"
+                class="type-btn"
+                data-type="wifi"
+            >
+                📶 Wi-Fi
+            </button>
+
+        </div>
+
+
+        <!-- MAIN INPUT -->
+
+        <div class="input-group">
+
+            <label for="qrText">
+                Content
+            </label>
+
+            <textarea
+                id="qrText"
+                rows="4"
+                maxlength="2000"
+                placeholder="Enter text, a website link, email address or other content..."
+                autocomplete="off"
+                spellcheck="false"
+            ></textarea>
+
+            <div class="input-meta">
+
+                <span>
+                    Character limit: 2000
+                </span>
+
+                <span>
+                    <strong id="charCount">0</strong>/2000
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- URL OPTIONS -->
+
+        <div
+            id="urlOptions"
+            class="extra-options hidden"
+        >
+
+            <label for="urlInput">
+                Website URL
+            </label>
+
+            <input
+                type="url"
+                id="urlInput"
+                placeholder="https://example.com"
+                autocomplete="url"
+            >
+
+        </div>
+
+
+        <!-- EMAIL OPTIONS -->
+
+        <div
+            id="emailOptions"
+            class="extra-options hidden"
+        >
+
+            <label for="emailInput">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="emailInput"
+                placeholder="example@email.com"
+                autocomplete="email"
+            >
+
+            <label for="emailSubject">
+                Subject
+            </label>
+
+            <input
+                type="text"
+                id="emailSubject"
+                placeholder="Email subject"
+            >
+
+        </div>
+
+
+        <!-- PHONE OPTIONS -->
+
+        <div
+            id="phoneOptions"
+            class="extra-options hidden"
+        >
+
+            <label for="phoneInput">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="phoneInput"
+                placeholder="+234..."
+                autocomplete="tel"
+            >
+
+        </div>
+
+
+        <!-- WIFI OPTIONS -->
+
+        <div
+            id="wifiOptions"
+            class="extra-options hidden"
+        >
+
+            <label for="wifiName">
+                Wi-Fi Network Name
+            </label>
+
+            <input
+                type="text"
+                id="wifiName"
+                placeholder="Network name"
+            >
+
+            <label for="wifiPassword">
+                Wi-Fi Password
+            </label>
+
+            <input
+                type="password"
+                id="wifiPassword"
+                placeholder="Network password"
+                autocomplete="off"
+            >
+
+            <label for="wifiSecurity">
+                Security
+            </label>
+
+            <select id="wifiSecurity">
+
+                <option value="WPA">
+                    WPA/WPA2
+                </option>
+
+                <option value="WEP">
+                    WEP
+                </option>
+
+                <option value="nopass">
+                    No Password
+                </option>
+
+            </select>
+
+            <label class="checkbox-row">
+
+                <input
+                    type="checkbox"
+                    id="wifiHidden"
+                >
+
+                <span>
+                    Hidden network
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- GENERATE -->
+
+        <button
+            type="button"
+            id="generateBtn"
+            class="primary-btn"
+        >
+            ⚡ Generate QR Code
+        </button>
+
+    </section>
+
+
+    <!-- =================================================
+         QR PREVIEW
+    ================================================== -->
+
+    <section class="qr-preview-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>👁️ QR Preview</h2>
+
+                <p>
+                    Your QR code will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="qrcode"
+            class="qr-preview"
+        >
+
+            <div class="qr-placeholder">
+
+                <span>▦</span>
+
+                <p>
+                    No QR code generated yet.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- QR INFO -->
+
+        <div class="qr-info">
+
+            <div>
+
+                <span>Size</span>
+
+                <strong id="qrInfoSize">
+                    256 × 256
+                </strong>
+
+            </div>
+
+            <div>
+
+                <span>Characters</span>
+
+                <strong id="qrInfoCharacters">
+                    0
+                </strong>
+
+            </div>
+
+            <div>
+
+                <span>Type</span>
+
+                <strong id="qrInfoType">
+                    Text
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="qr-actions">
+
+            <button
+                type="button"
+                id="downloadBtn"
+            >
+                💾 Download PNG
+            </button>
+
+            <button
+                type="button"
+                id="copyBtn"
+            >
+                📋 Copy QR
+            </button>
+
+            <button
+                type="button"
+                id="shareBtn"
+            >
+                📤 Share
+            </button>
+
+            <button
+                type="button"
+                id="clearBtn"
+            >
+                🗑️ Clear
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CUSTOMIZATION
+    ================================================== -->
+
+    <section class="customization">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>🎨 Customize QR</h2>
+
+                <p>
+                    Make your QR code look the way you want.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIZE -->
+
+        <div class="setting">
+
+            <div class="setting-header">
+
+                <label for="qrSize">
+                    QR Size
+                </label>
+
+                <span id="qrSizeValue">
+                    256px
+                </span>
+
+            </div>
+
+            <input
+                type="range"
+                id="qrSize"
+                min="128"
+                max="512"
+                step="8"
+                value="256"
+            >
+
+            <div class="range-info">
+
+                <span>128px</span>
+
+                <span>512px</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOREGROUND -->
+
+        <div class="color-setting">
+
+            <label for="foregroundColor">
+                QR Color
+            </label>
+
+            <div class="color-control">
+
+                <input
+                    type="color"
+                    id="foregroundColor"
+                    value="#000000"
+                >
+
+                <span id="foregroundValue">
+                    #000000
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACKGROUND -->
+
+        <div class="color-setting">
+
+            <label for="backgroundColor">
+                Background Color
+            </label>
+
+            <div class="color-control">
+
+                <input
+                    type="color"
+                    id="backgroundColor"
+                    value="#ffffff"
+                >
+
+                <span id="backgroundValue">
+                    #FFFFFF
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ERROR CORRECTION -->
+
+        <div class="setting">
+
+            <label for="errorCorrection">
+                Error Correction
+            </label>
+
+            <select id="errorCorrection">
+
+                <option value="L">
+                    Low — 7%
+                </option>
+
+                <option value="M" selected>
+                    Medium — 15%
+                </option>
+
+                <option value="Q">
+                    High — 25%
+                </option>
+
+                <option value="H">
+                    Maximum — 30%
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- MARGIN -->
+
+        <div class="setting checkbox-setting">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="includeMargin"
+                    checked
+                >
+
+                <span>
+
+                    <strong>
+                        Include Quiet Zone
+                    </strong>
+
+                    <small>
+                        Adds a clean margin around the QR code.
+                    </small>
+
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- LIVE PREVIEW -->
+
+        <div class="setting checkbox-setting">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="livePreview"
+                    checked
+                >
+
+                <span>
+
+                    <strong>
+                        Live Preview
+                    </strong>
+
+                    <small>
+                        Automatically update the QR while editing.
+                    </small>
+
+                </span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         RECENT HISTORY
+    ================================================== -->
+
+    <section class="history-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>🕒 Recent QR Codes</h2>
+
+                <p>
+                    Recent QR content is kept only during this page session.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="clearHistoryBtn"
+            >
+                🗑️ Clear History
+            </button>
+
+        </div>
+
+
+        <div id="qrHistory">
+
+            <div class="empty-history">
+
+                <span>▦</span>
+
+                <p>
+                    No QR codes generated yet.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SECURITY / PRIVACY
+    ================================================== -->
+
+    <section class="security-info">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>🔒 Privacy</h2>
+
+                <p>
+                    Your QR content is processed directly in your browser.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="security-grid">
+
+            <article>
+
+                <span>⚡</span>
+
+                <h3>Instant</h3>
+
+                <p>
+                    QR codes are generated directly on your device.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <span>🛡️</span>
+
+                <h3>Private</h3>
+
+                <p>
+                    Your QR content isn't uploaded to ToolHub.
+                </p>
+
+            </article>
+
+
+            <article>
+
+                <span>📱</span>
+
+                <h3>Universal</h3>
+
+                <p>
+                    Scan your QR code with almost any modern camera app.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 ToolHub • QR Code Generator
+    </p>
+
+    <p>
+        Create smarter. Share faster. 📱
+    </p>
+
+</footer>
+
+
+<script src="qr.js" defer></script>
 
 </body>
-</html>
+
+  </html>
