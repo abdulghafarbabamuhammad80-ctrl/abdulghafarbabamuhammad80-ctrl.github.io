@@ -1,6 +1,6 @@
 /* =========================================================
-   TOOLHUB — PASSWORD GENERATOR MEGA JS
-   🔐⚡ PLUS ULTRA EDITION
+   TOOLHUB — PASSWORD GENERATOR MEGA JS 🔐⚡
+   FULL VERSION — 4 to 100 CHARACTERS
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,10 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const password = document.getElementById("password");
-    const generateBtn = document.getElementById("generate");
-    const copyBtn = document.getElementById("copy");
+    const generate = document.getElementById("generate");
+    const copy = document.getElementById("copy");
+    const togglePassword = document.getElementById("togglePassword");
 
-    const lengthSlider = document.getElementById("length");
+    const length = document.getElementById("length");
     const lengthValue = document.getElementById("lengthValue");
 
     const uppercase = document.getElementById("uppercase");
@@ -21,88 +22,125 @@ document.addEventListener("DOMContentLoaded", () => {
     const numbers = document.getElementById("numbers");
     const symbols = document.getElementById("symbols");
 
-    const togglePassword = document.getElementById("togglePassword");
+    const excludeAmbiguous =
+        document.getElementById("excludeAmbiguous");
+
+    const excludeSimilar =
+        document.getElementById("excludeSimilar");
 
     const strength = document.getElementById("strength");
     const strengthFill = document.getElementById("strengthFill");
+    const strengthScore = document.getElementById("strengthScore");
+    const entropy = document.getElementById("entropy");
 
-    const statLength = document.getElementById("statLength");
-    const statUpper = document.getElementById("statUpper");
-    const statLower = document.getElementById("statLower");
-    const statNumber = document.getElementById("statNumber");
-    const statSymbol = document.getElementById("statSymbol");
+    const history = document.getElementById("history");
+    const clearHistory = document.getElementById("clearHistory");
 
-    const healthScore = document.getElementById("healthScore");
-    const healthTips = document.getElementById("healthTips");
+    const securityStatus =
+        document.getElementById("securityStatus");
 
-    const historyBox = document.getElementById("history");
+    const statLength =
+        document.getElementById("statLength");
+
+    const statUpper =
+        document.getElementById("statUpper");
+
+    const statLower =
+        document.getElementById("statLower");
+
+    const statNumber =
+        document.getElementById("statNumber");
+
+    const statSymbol =
+        document.getElementById("statSymbol");
+
+    const statPool =
+        document.getElementById("statPool");
+
+    const healthScore =
+        document.getElementById("healthScore");
+
+    const healthScoreLabel =
+        document.getElementById("healthScoreLabel");
+
+    const healthLevel =
+        document.getElementById("healthLevel");
+
+    const healthSummary =
+        document.getElementById("healthSummary");
+
+    const healthTips =
+        document.getElementById("healthTips");
+
 
     /* =====================================================
-       CHARACTER POOLS
+       CHARACTER SETS
     ===================================================== */
 
     const CHARACTERS = {
-        uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        lowercase: "abcdefghijklmnopqrstuvwxyz",
-        numbers: "0123456789",
-        symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?"
+
+        uppercase:
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+
+        lowercase:
+            "abcdefghijklmnopqrstuvwxyz",
+
+        numbers:
+            "0123456789",
+
+        symbols:
+            "!@#$%^&*()_+-=[]{}|;:,.<>?"
+
     };
 
+
     /* =====================================================
-       STATE
+       HISTORY
     ===================================================== */
 
     let passwordHistory = [];
 
-    const MAX_HISTORY = 5;
 
     /* =====================================================
-       SAFE RANDOM NUMBER
+       SECURE RANDOM NUMBER
     ===================================================== */
 
-    function randomNumber(max) {
+    function secureRandom(max) {
 
-        if (max <= 0) return 0;
+        if (
+            window.crypto &&
+            window.crypto.getRandomValues
+        ) {
 
-        if (window.crypto && window.crypto.getRandomValues) {
-
-            const array = new Uint32Array(1);
+            const array =
+                new Uint32Array(1);
 
             window.crypto.getRandomValues(array);
 
-            /*
-             * Rejection sampling avoids the small bias caused
-             * by simply using randomNumber % max.
-             */
-
-            const limit =
-                Math.floor(0x100000000 / max) * max;
-
-            let value = array[0];
-
-            while (value >= limit) {
-
-                window.crypto.getRandomValues(array);
-
-                value = array[0];
-            }
-
-            return value % max;
+            return array[0] % max;
         }
 
-        return Math.floor(Math.random() * max);
+        return Math.floor(
+            Math.random() * max
+        );
     }
+
 
     /* =====================================================
        RANDOM CHARACTER
     ===================================================== */
 
-    function randomCharacter(characters) {
+    function randomCharacter(chars) {
 
-        return characters[
-            randomNumber(characters.length)
+        if (!chars || chars.length === 0) {
+            return "";
+        }
+
+        return chars[
+            secureRandom(chars.length)
         ];
     }
+
 
     /* =====================================================
        SECURE SHUFFLE
@@ -110,60 +148,126 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function shuffle(array) {
 
-        for (let i = array.length - 1; i > 0; i--) {
+        for (
+            let i = array.length - 1;
+            i > 0;
+            i--
+        ) {
 
-            const j = randomNumber(i + 1);
+            const j =
+                secureRandom(i + 1);
 
-            [array[i], array[j]] =
-            [array[j], array[i]];
+            [
+                array[i],
+                array[j]
+            ] = [
+                array[j],
+                array[i]
+            ];
         }
 
         return array;
     }
 
+
     /* =====================================================
-       GET SELECTED CHARACTER SETS
+       UPDATE LENGTH
     ===================================================== */
 
-    function getSelectedSets() {
+    function updateLength() {
+
+        lengthValue.textContent =
+            length.value;
+
+    }
+
+    length.addEventListener(
+        "input",
+        updateLength
+    );
+
+    updateLength();
+
+
+    /* =====================================================
+       BUILD CHARACTER POOL
+    ===================================================== */
+
+    function getCharacterSets() {
 
         const sets = [];
 
         if (uppercase.checked) {
-            sets.push(CHARACTERS.uppercase);
+
+            sets.push({
+                name: "uppercase",
+                chars: CHARACTERS.uppercase
+            });
+
         }
 
         if (lowercase.checked) {
-            sets.push(CHARACTERS.lowercase);
+
+            sets.push({
+                name: "lowercase",
+                chars: CHARACTERS.lowercase
+            });
+
         }
 
         if (numbers.checked) {
-            sets.push(CHARACTERS.numbers);
+
+            sets.push({
+                name: "numbers",
+                chars: CHARACTERS.numbers
+            });
+
         }
 
         if (symbols.checked) {
-            sets.push(CHARACTERS.symbols);
+
+            sets.push({
+                name: "symbols",
+                chars: CHARACTERS.symbols
+            });
+
         }
 
         return sets;
     }
 
+
     /* =====================================================
-       LENGTH DISPLAY
+       REMOVE EXCLUDED CHARACTERS
     ===================================================== */
 
-    function updateLengthDisplay() {
+    function applyExclusions(chars) {
 
-        lengthValue.textContent =
-            lengthSlider.value;
+        let result = chars;
+
+        if (excludeAmbiguous.checked) {
+
+            result =
+                result.replace(
+                    /[O0Il1]/g,
+                    ""
+                );
+
+        }
+
+        if (excludeSimilar.checked) {
+
+            result =
+                result.replace(
+                    /[oO0iIlL1|]/g,
+                    ""
+                );
+
+        }
+
+        return result;
     }
 
-    lengthSlider.addEventListener(
-        "input",
-        updateLengthDisplay
-    );
-
-    updateLengthDisplay();
 
     /* =====================================================
        GENERATE PASSWORD
@@ -171,216 +275,322 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generatePassword() {
 
-        const targetLength =
-            Number(lengthSlider.value);
+        const passwordLength =
+            Number(length.value);
 
-        const sets =
-            getSelectedSets();
+        const selectedSets =
+            getCharacterSets();
 
-        /* No categories selected */
+        if (selectedSets.length === 0) {
 
-        if (sets.length === 0) {
-
-            password.value = "";
-
-            strength.textContent =
-                "Select options ⚠️";
-
-            strengthFill.style.width = "0%";
-
-            updateStatistics("");
-
-            updateHealth("");
+            alert(
+                "⚠️ Select at least one character type."
+            );
 
             return;
         }
 
-        /*
-         * Normally HTML minimum is 4.
-         * This protection keeps the function safe if
-         * someone changes the minimum later.
-         */
 
-        if (targetLength < sets.length) {
+        /* Make sure the requested
+           length can contain every
+           selected category. */
 
-            password.value = "";
+        if (
+            passwordLength <
+            selectedSets.length
+        ) {
 
-            strength.textContent =
-                "Length too short ⚠️";
-
-            strengthFill.style.width = "0%";
-
-            updateHealth("");
+            alert(
+                `⚠️ Password length must be at least ${selectedSets.length} characters for the selected options.`
+            );
 
             return;
         }
 
-        const combined =
-            sets.join("");
 
-        const result = [];
+        const usableSets =
+            selectedSets.map(set => {
 
-        /*
-         * Guarantee one character from every
-         * selected category.
-         */
+                return {
 
-        sets.forEach(set => {
+                    name: set.name,
 
-            result.push(
-                randomCharacter(set)
+                    chars:
+                        applyExclusions(
+                            set.chars
+                        )
+
+                };
+
+            });
+
+
+        /* Check that exclusions did
+           not empty a character set. */
+
+        const invalidSet =
+            usableSets.find(
+                set => !set.chars.length
+            );
+
+        if (invalidSet) {
+
+            alert(
+                "⚠️ Your exclusion settings removed all characters from one selected category."
+            );
+
+            return;
+        }
+
+
+        /* =================================================
+           GUARANTEE EACH SELECTED TYPE
+        ================================================= */
+
+        let characters = [];
+
+        usableSets.forEach(set => {
+
+            characters.push(
+                randomCharacter(
+                    set.chars
+                )
             );
 
         });
 
-        /*
-         * Fill the remaining positions.
-         */
 
-        while (result.length < targetLength) {
+        /* =================================================
+           COMBINED CHARACTER POOL
+        ================================================= */
 
-            result.push(
-                randomCharacter(combined)
+        const combined =
+            usableSets
+                .map(set => set.chars)
+                .join("");
+
+
+        /* =================================================
+           FILL REMAINING CHARACTERS
+        ================================================= */
+
+        while (
+            characters.length <
+            passwordLength
+        ) {
+
+            characters.push(
+                randomCharacter(
+                    combined
+                )
             );
 
         }
 
-        /*
-         * Shuffle so the guaranteed characters
-         * aren't always at the beginning.
-         */
 
-        shuffle(result);
+        /* =================================================
+           SHUFFLE
+        ================================================= */
+
+        shuffle(characters);
+
+
+        /* =================================================
+           FINAL PASSWORD
+        ================================================= */
 
         const finalPassword =
-            result.join("");
+            characters
+                .slice(
+                    0,
+                    passwordLength
+                )
+                .join("");
+
 
         password.value =
             finalPassword;
 
-        updateStatistics(finalPassword);
 
-        updateStrength(finalPassword);
+        /* =================================================
+           UPDATE EVERYTHING
+        ================================================= */
 
-        updateHealth(finalPassword);
-
-        addToHistory(finalPassword);
-
-        /*
-         * If password is currently visible,
-         * keep it visible.
-         */
-
-        password.focus();
-        password.setSelectionRange(
-            password.value.length,
-            password.value.length
+        updateStatistics(
+            finalPassword,
+            combined.length
         );
+
+        updateStrength(
+            finalPassword,
+            combined.length
+        );
+
+        updateHealth(
+            finalPassword
+        );
+
+        addToHistory(
+            finalPassword
+        );
+
+
+        /* =================================================
+           SECURITY STATUS
+        ================================================= */
+
+        securityStatus.textContent =
+            "● Generated";
+
+        securityStatus.style.color =
+            "#39ff88";
+
     }
 
-    generateBtn.addEventListener(
+
+    /* =====================================================
+       GENERATE BUTTON
+    ===================================================== */
+
+    generate.addEventListener(
         "click",
         generatePassword
     );
+
 
     /* =====================================================
        PASSWORD STRENGTH
     ===================================================== */
 
-    function calculateStrength(pass) {
+    function calculateStrength(
+        pass,
+        poolSize
+    ) {
 
-        if (!pass) return 0;
+        if (!pass) {
+            return 0;
+        }
+
 
         let score = 0;
 
-        const length = pass.length;
+        const len =
+            pass.length;
 
-        /* Length */
 
-        if (length >= 8) score += 15;
-        if (length >= 12) score += 15;
-        if (length >= 16) score += 15;
-        if (length >= 20) score += 10;
-        if (length >= 24) score += 5;
+        /* LENGTH */
 
-        /* Character variety */
+        if (len >= 8)
+            score += 15;
 
-        if (/[A-Z]/.test(pass)) {
+        if (len >= 12)
+            score += 15;
+
+        if (len >= 16)
+            score += 15;
+
+        if (len >= 24)
+            score += 15;
+
+        if (len >= 32)
             score += 10;
-        }
 
-        if (/[a-z]/.test(pass)) {
-            score += 10;
-        }
-
-        if (/[0-9]/.test(pass)) {
-            score += 10;
-        }
-
-        if (/[^A-Za-z0-9]/.test(pass)) {
-            score += 10;
-        }
-
-        /* Diversity bonus */
-
-        const types = [
-            /[A-Z]/,
-            /[a-z]/,
-            /[0-9]/,
-            /[^A-Za-z0-9]/
-        ].filter(regex => regex.test(pass)).length;
-
-        if (types === 4) {
+        if (len >= 50)
             score += 5;
-        }
 
-        /* Penalize obvious repetition */
 
-        if (/(.)\1{2,}/.test(pass)) {
-            score -= 10;
-        }
+        /* CHARACTER VARIETY */
 
-        /* Penalize obvious sequences */
+        if (/[A-Z]/.test(pass))
+            score += 7;
+
+        if (/[a-z]/.test(pass))
+            score += 7;
+
+        if (/[0-9]/.test(pass))
+            score += 5;
+
+        if (/[^A-Za-z0-9]/.test(pass))
+            score += 6;
+
+
+        /* CHARACTER POOL */
+
+        if (poolSize >= 60)
+            score += 5;
+
+        else if (poolSize >= 40)
+            score += 3;
+
+
+        /* PENALTIES */
+
+        if (/(.)\1{2,}/.test(pass))
+            score -= 5;
 
         if (
-            /1234/.test(pass) ||
-            /2345/.test(pass) ||
-            /3456/.test(pass) ||
-            /abcd/i.test(pass) ||
-            /bcde/i.test(pass) ||
+            /12345/.test(pass) ||
+            /abcde/i.test(pass) ||
             /qwerty/i.test(pass)
         ) {
             score -= 10;
         }
 
+
         return Math.max(
             0,
             Math.min(100, score)
         );
+
     }
 
-    /* =====================================================
-       UPDATE STRENGTH UI
-    ===================================================== */
 
-    function updateStrength(pass) {
+    function updateStrength(
+        pass,
+        poolSize
+    ) {
 
         const score =
-            calculateStrength(pass);
+            calculateStrength(
+                pass,
+                poolSize
+            );
+
+
+        strengthScore.textContent =
+            score;
+
 
         strengthFill.style.width =
             score + "%";
 
-        if (!pass) {
 
-            strength.textContent =
-                "No password";
+        /* =================================================
+           ENTROPY
+        ================================================= */
 
-            strength.style.color =
-                "var(--muted)";
+        let entropyValue = 0;
 
-            return;
+        if (
+            pass &&
+            poolSize > 1
+        ) {
+
+            entropyValue =
+                Math.round(
+                    pass.length *
+                    Math.log2(poolSize)
+                );
+
         }
+
+        entropy.textContent =
+            entropyValue;
+
+
+        /* =================================================
+           STRENGTH LEVEL
+        ================================================= */
 
         if (score < 35) {
 
@@ -389,6 +599,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             strength.style.color =
                 "#ff3b3b";
+
+            strengthFill.style.background =
+                "linear-gradient(90deg,#ff3b3b,#ff6b6b)";
+
         }
 
         else if (score < 60) {
@@ -398,6 +612,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             strength.style.color =
                 "#ff9f1c";
+
+            strengthFill.style.background =
+                "linear-gradient(90deg,#ff9f1c,#ffd166)";
+
         }
 
         else if (score < 80) {
@@ -407,48 +625,80 @@ document.addEventListener("DOMContentLoaded", () => {
 
             strength.style.color =
                 "#39ff88";
+
+            strengthFill.style.background =
+                "linear-gradient(90deg,#39ff88,#00e5ff)";
+
         }
 
         else if (score < 95) {
 
             strength.textContent =
-                "Very Strong 🔵";
+                "Very Strong 🛡️";
 
             strength.style.color =
                 "#00e5ff";
+
+            strengthFill.style.background =
+                "linear-gradient(90deg,#00e5ff,#4dd0ff,#b026ff)";
+
         }
 
         else {
 
             strength.textContent =
-                "Excellent 🛡️";
+                "Excellent ⚡";
 
             strength.style.color =
                 "#b026ff";
+
+            strengthFill.style.background =
+                "linear-gradient(90deg,#00e5ff,#b026ff,#ff2f92)";
+
         }
+
     }
+
 
     /* =====================================================
        STATISTICS
     ===================================================== */
 
-    function updateStatistics(pass) {
+    function updateStatistics(
+        pass,
+        poolSize
+    ) {
 
         statLength.textContent =
             pass.length;
 
         statUpper.textContent =
-            (pass.match(/[A-Z]/g) || []).length;
+            (
+                pass.match(/[A-Z]/g) || []
+            ).length;
 
         statLower.textContent =
-            (pass.match(/[a-z]/g) || []).length;
+            (
+                pass.match(/[a-z]/g) || []
+            ).length;
 
         statNumber.textContent =
-            (pass.match(/[0-9]/g) || []).length;
+            (
+                pass.match(/[0-9]/g) || []
+            ).length;
 
         statSymbol.textContent =
-            (pass.match(/[^A-Za-z0-9]/g) || []).length;
+            (
+                pass.match(
+                    /[^A-Za-z0-9]/g
+                ) || []
+            ).length;
+
+        statPool.textContent =
+            poolSize;
+
     }
+
 
     /* =====================================================
        PASSWORD HEALTH
@@ -456,45 +706,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateHealth(pass) {
 
-        if (!pass) {
-
-            healthScore.textContent = "0";
-
-            healthTips.innerHTML =
-                "<li>Generate a password to analyze it.</li>";
-
-            return;
-        }
-
         let score = 0;
 
         const tips = [];
 
+
         /* LENGTH */
 
-        if (pass.length >= 20) {
+        if (pass.length >= 32) {
 
             score += 30;
 
             tips.push(
-                "✅ Excellent length"
+                "✅ Excellent password length"
             );
 
         }
 
         else if (pass.length >= 16) {
 
-            score += 27;
+            score += 25;
 
             tips.push(
-                "✅ Great password length"
+                "✅ Strong password length"
             );
 
         }
 
         else if (pass.length >= 12) {
 
-            score += 23;
+            score += 20;
 
             tips.push(
                 "✅ Good password length"
@@ -507,111 +748,192 @@ document.addEventListener("DOMContentLoaded", () => {
             score += 10;
 
             tips.push(
-                "⚠️ Consider using 12+ characters"
+                "⚠️ Consider using at least 12 characters"
             );
+
         }
+
 
         /* UPPERCASE */
 
         if (/[A-Z]/.test(pass)) {
 
-            score += 17;
+            score += 20;
 
             tips.push(
-                "✅ Uppercase letters detected"
+                "✅ Uppercase letters included"
             );
 
-        } else {
+        }
+
+        else {
 
             tips.push(
                 "❌ Add uppercase letters"
             );
+
         }
+
 
         /* LOWERCASE */
 
         if (/[a-z]/.test(pass)) {
 
-            score += 17;
+            score += 20;
 
             tips.push(
-                "✅ Lowercase letters detected"
+                "✅ Lowercase letters included"
             );
 
-        } else {
+        }
+
+        else {
 
             tips.push(
                 "❌ Add lowercase letters"
             );
+
         }
+
 
         /* NUMBERS */
 
         if (/[0-9]/.test(pass)) {
 
-            score += 14;
+            score += 15;
 
             tips.push(
-                "✅ Numbers detected"
+                "✅ Numbers included"
             );
 
-        } else {
+        }
+
+        else {
 
             tips.push(
                 "❌ Add numbers"
             );
+
         }
+
 
         /* SYMBOLS */
 
         if (/[^A-Za-z0-9]/.test(pass)) {
 
-            score += 14;
+            score += 15;
 
             tips.push(
-                "✅ Symbols detected"
+                "✅ Symbols included"
             );
 
-        } else {
+        }
+
+        else {
 
             tips.push(
                 "❌ Add symbols"
             );
+
         }
 
-        /* REPETITION */
+
+        /* REPEATED CHARACTERS */
 
         if (/(.)\1{2,}/.test(pass)) {
 
             score -= 10;
 
             tips.push(
-                "⚠️ Repeated characters detected"
+                "⚠️ Avoid long repeated character patterns"
             );
+
         }
 
-        /* PATTERNS */
+
+        /* PREDICTABLE PATTERNS */
 
         if (
-            /1234/.test(pass) ||
-            /abcd/i.test(pass) ||
+            /12345/.test(pass) ||
+            /abcde/i.test(pass) ||
             /qwerty/i.test(pass)
         ) {
 
-            score -= 10;
+            score -= 15;
 
             tips.push(
                 "⚠️ Avoid predictable patterns"
             );
+
         }
 
-        score = Math.max(
-            0,
-            Math.min(100, score)
-        );
+
+        score =
+            Math.max(
+                0,
+                Math.min(100, score)
+            );
+
+
+        /* =================================================
+           DISPLAY SCORE
+        ================================================= */
 
         healthScore.textContent =
             score;
+
+        healthScoreLabel.textContent =
+            score;
+
+
+        /* =================================================
+           HEALTH LEVEL
+        ================================================= */
+
+        if (score < 40) {
+
+            healthLevel.textContent =
+                "Needs Improvement 🔴";
+
+            healthSummary.textContent =
+                "This password could be significantly stronger.";
+
+        }
+
+        else if (score < 65) {
+
+            healthLevel.textContent =
+                "Fair 🟠";
+
+            healthSummary.textContent =
+                "Decent, but there are ways to improve it.";
+
+        }
+
+        else if (score < 85) {
+
+            healthLevel.textContent =
+                "Good 🟢";
+
+            healthSummary.textContent =
+                "This password has a solid security structure.";
+
+        }
+
+        else {
+
+            healthLevel.textContent =
+                "Excellent 🛡️";
+
+            healthSummary.textContent =
+                "This password has strong length and character diversity.";
+
+        }
+
+
+        /* =================================================
+           TIPS
+        ================================================= */
 
         healthTips.innerHTML = "";
 
@@ -620,250 +942,214 @@ document.addEventListener("DOMContentLoaded", () => {
             const li =
                 document.createElement("li");
 
-            li.textContent = tip;
+            li.textContent =
+                tip;
 
             healthTips.appendChild(li);
+
         });
+
     }
+
 
     /* =====================================================
-       HISTORY — LOCAL STORAGE
+       HISTORY
     ===================================================== */
-
-    function loadHistory() {
-
-        try {
-
-            const saved =
-                localStorage.getItem(
-                    "toolhub_password_history"
-                );
-
-            if (!saved) return;
-
-            const parsed =
-                JSON.parse(saved);
-
-            if (Array.isArray(parsed)) {
-
-                passwordHistory =
-                    parsed.slice(0, MAX_HISTORY);
-            }
-
-        } catch {
-
-            passwordHistory = [];
-        }
-
-        renderHistory();
-    }
-
-    function saveHistory() {
-
-        try {
-
-            localStorage.setItem(
-                "toolhub_password_history",
-                JSON.stringify(passwordHistory)
-            );
-
-        } catch {
-            /* Storage unavailable — app still works */
-        }
-    }
 
     function addToHistory(pass) {
 
-        if (!pass) return;
-
-        passwordHistory =
-            passwordHistory.filter(
-                item => item !== pass
-            );
-
         passwordHistory.unshift(pass);
 
-        passwordHistory =
-            passwordHistory.slice(
-                0,
-                MAX_HISTORY
-            );
 
-        saveHistory();
+        /* Remove duplicates */
+
+        passwordHistory =
+            [...new Set(passwordHistory)];
+
+
+        /* Keep only 5 */
+
+        passwordHistory =
+            passwordHistory.slice(0, 5);
+
 
         renderHistory();
+
     }
 
-    /* =====================================================
-       RENDER HISTORY
-    ===================================================== */
 
     function renderHistory() {
 
-        historyBox.innerHTML = "";
+        history.innerHTML = "";
 
-        if (passwordHistory.length === 0) {
 
-            const empty =
-                document.createElement("p");
+        if (
+            passwordHistory.length === 0
+        ) {
 
-            empty.textContent =
-                "No passwords generated yet.";
-
-            historyBox.appendChild(empty);
+            history.innerHTML = `
+                <div class="empty-history">
+                    <span>🔐</span>
+                    <p>No passwords generated yet.</p>
+                </div>
+            `;
 
             return;
         }
 
+
         passwordHistory.forEach(
             (item, index) => {
 
-                const wrapper =
+                const div =
                     document.createElement("div");
 
-                wrapper.className =
+                div.className =
                     "history-item";
 
-                wrapper.textContent =
+                div.textContent =
                     `${index + 1}. ${item}`;
 
-                wrapper.title =
-                    "Tap to copy";
+                div.title =
+                    "Click to copy this password";
 
-                wrapper.addEventListener(
+
+                div.addEventListener(
                     "click",
                     async () => {
 
-                        const success =
-                            await copyText(item);
+                        try {
 
-                        if (success) {
+                            await navigator.clipboard
+                                .writeText(item);
 
-                            const oldText =
-                                wrapper.textContent;
-
-                            wrapper.textContent =
-                                "✅ Copied!";
+                            div.textContent =
+                                "✅ Password copied!";
 
                             setTimeout(() => {
 
-                                wrapper.textContent =
-                                    oldText;
+                                div.textContent =
+                                    `${index + 1}. ${item}`;
 
-                            }, 1200);
+                            }, 1500);
+
                         }
+
+                        catch {
+
+                            alert(
+                                "❌ Unable to copy password."
+                            );
+
+                        }
+
                     }
                 );
 
-                historyBox.appendChild(wrapper);
+
+                history.appendChild(div);
+
             }
         );
+
     }
 
+
     /* =====================================================
-       COPY HELPER
+       🔥 CLEAR HISTORY — FIXED
     ===================================================== */
 
-    async function copyText(text) {
-
-        try {
+    clearHistory.addEventListener(
+        "click",
+        () => {
 
             if (
-                navigator.clipboard &&
-                window.isSecureContext
+                passwordHistory.length === 0
             ) {
 
-                await navigator.clipboard.writeText(
-                    text
-                );
+                return;
 
-                return true;
             }
 
-        } catch {
-            /* Try fallback */
+
+            passwordHistory = [];
+
+
+            renderHistory();
+
+
+            securityStatus.textContent =
+                "● History Cleared";
+
+            securityStatus.style.color =
+                "#ff2f92";
+
+
+            setTimeout(() => {
+
+                securityStatus.textContent =
+                    "● Ready";
+
+                securityStatus.style.color =
+                    "";
+
+            }, 1800);
+
         }
+    );
 
-        /* Older browser fallback */
-
-        try {
-
-            const textarea =
-                document.createElement("textarea");
-
-            textarea.value = text;
-
-            textarea.style.position =
-                "fixed";
-
-            textarea.style.opacity = "0";
-
-            document.body.appendChild(
-                textarea
-            );
-
-            textarea.focus();
-
-            textarea.select();
-
-            const success =
-                document.execCommand("copy");
-
-            textarea.remove();
-
-            return success;
-
-        } catch {
-
-            return false;
-        }
-    }
 
     /* =====================================================
-       COPY CURRENT PASSWORD
+       COPY PASSWORD
     ===================================================== */
 
-    copyBtn.addEventListener(
+    copy.addEventListener(
         "click",
         async () => {
 
             if (!password.value) {
 
-                copyBtn.textContent =
-                    "⚠️ Generate First";
+                alert(
+                    "⚠️ Generate a password first!"
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                await navigator.clipboard
+                    .writeText(
+                        password.value
+                    );
+
+
+                copy.textContent =
+                    "✅ Copied!";
+
 
                 setTimeout(() => {
 
-                    copyBtn.textContent =
+                    copy.textContent =
                         "📋 Copy";
 
-                }, 1500);
+                }, 2000);
 
-                return;
             }
 
-            const success =
-                await copyText(password.value);
+            catch {
 
-            if (success) {
+                alert(
+                    "❌ Copy failed. Try selecting the password manually."
+                );
 
-                copyBtn.textContent =
-                    "✅ Copied!";
-
-            } else {
-
-                copyBtn.textContent =
-                    "❌ Copy Failed";
             }
 
-            setTimeout(() => {
-
-                copyBtn.textContent =
-                    "📋 Copy";
-
-            }, 1800);
         }
     );
+
 
     /* =====================================================
        SHOW / HIDE
@@ -873,18 +1159,32 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         () => {
 
-            const showing =
-                password.type === "text";
+            if (
+                password.type ===
+                "password"
+            ) {
 
-            password.type =
-                showing ? "password" : "text";
+                password.type =
+                    "text";
 
-            togglePassword.textContent =
-                showing
-                    ? "👁️ Show"
-                    : "🙈 Hide";
+                togglePassword.textContent =
+                    "🙈 Hide";
+
+            }
+
+            else {
+
+                password.type =
+                    "password";
+
+                togglePassword.textContent =
+                    "👁️ Show";
+
+            }
+
         }
     );
+
 
     /* =====================================================
        KEYBOARD SHORTCUT
@@ -894,66 +1194,27 @@ document.addEventListener("DOMContentLoaded", () => {
         "keydown",
         event => {
 
-            /*
-             * Ctrl + Enter
-             * or
-             * Enter while focused on generator controls
-             */
-
             if (
                 event.ctrlKey &&
-                event.key === "Enter"
+                event.key.toLowerCase() ===
+                "enter"
             ) {
 
                 event.preventDefault();
 
                 generatePassword();
+
             }
+
         }
     );
 
-    /* =====================================================
-       LIVE PREVIEW WHEN OPTIONS CHANGE
-    ===================================================== */
-
-    [
-        uppercase,
-        lowercase,
-        numbers,
-        symbols
-    ].forEach(input => {
-
-        input.addEventListener(
-            "change",
-            () => {
-
-                /*
-                 * Don't automatically generate
-                 * if no password exists yet.
-                 */
-
-                if (password.value) {
-                    generatePassword();
-                }
-            }
-        );
-    });
 
     /* =====================================================
-       INITIALIZE
+       INITIAL STATE
     ===================================================== */
 
-    loadHistory();
-
-    updateLengthDisplay();
-
-    updateStatistics("");
-
-    updateHealth("");
-
-    /*
-     * Generate the first password automatically.
-     */
+    renderHistory();
 
     generatePassword();
 
