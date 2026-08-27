@@ -1,71 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Age Calculator | ToolHub</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Age Calculator | ToolHub</title>
-
-<link rel="stylesheet"
-href="age.css">
-
+    <link rel="stylesheet" href="age.css">
 </head>
 
 <body>
 
-<header>
+    <main class="age-page">
 
-<h1>🎂 Age Calculator</h1>
+        <header class="tool-header">
+            <div class="tool-icon">🎂</div>
 
-<p>Find your exact age instantly.</p>
+            <h1>Age Calculator</h1>
 
-<a href="index.html"
-class="home-btn">
+            <p>Discover your exact age in years, months and days.</p>
 
-← Back to ToolHub
+            <a href="index.html" class="home-btn">
+                ← Back to ToolHub
+            </a>
+        </header>
 
-</a>
+        <section class="calculator-card">
 
-</header>
+            <div class="card-heading">
+                <span class="section-icon">📅</span>
 
-<div class="container">
+                <div>
+                    <h2>Select Your Birthday</h2>
+                    <p>Enter your date of birth to calculate your age.</p>
+                </div>
+            </div>
 
-<h2>Select Your Birthday</h2>
+            <div class="input-group">
+                <label for="birthDate">Date of Birth</label>
 
-<input
-type="date"
-id="birthDate">
+                <input
+                    type="date"
+                    id="birthDate"
+                    aria-label="Date of Birth"
+                >
+            </div>
 
-<button
-id="calculateBtn">
+            <button
+                id="calculateBtn"
+                class="calculate-btn"
+                type="button"
+            >
+                🎉 Calculate Age
+            </button>
 
-🎉 Calculate Age
+            <section
+                id="result"
+                class="result-card"
+                aria-live="polite"
+            >
 
-</button>
+                <div class="result-title">
+                    <span>✨</span>
+                    <h2>Your Age</h2>
+                </div>
 
-<div id="result">
+                <div class="age-results">
 
-<p>Years:
-<span id="years">0</span></p>
+                    <div class="age-box">
+                        <span id="years">0</span>
+                        <small>Years</small>
+                    </div>
 
-<p>Months:
-<span id="months">0</span></p>
+                    <div class="age-box">
+                        <span id="months">0</span>
+                        <small>Months</small>
+                    </div>
 
-<p>Days:
-<span id="days">0</span></p>
+                    <div class="age-box">
+                        <span id="days">0</span>
+                        <small>Days</small>
+                    </div>
 
-<p>Next Birthday In:
-<span id="birthday">0</span>
-days</p>
+                </div>
 
-</div>
+                <div class="birthday-result">
+                    🎂 Next Birthday In:
+                    <strong>
+                        <span id="birthday">0</span> days
+                    </strong>
+                </div>
 
-</div>
+            </section>
 
-<script src="age.js"></script>
+        </section>
+
+    </main>
+
+    <script src="age.js"></script>
 
 </body>
 </html>
