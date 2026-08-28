@@ -10,62 +10,189 @@
 <link rel="stylesheet" href="color.css">
 
 </head>
+
 <body>
 
 <header>
 
 <h1>🎨 Colour Picker</h1>
 
-<p>Choose any colour and copy its code.</p>
+<p>Pick, explore and copy colours instantly.</p>
 
 <a href="index.html" class="home-btn">
-
 ← Back to ToolHub
-
 </a>
 
 </header>
 
 <div class="container">
 
-<div id="preview"></div>
+    <!-- COLOUR PREVIEW -->
 
-<input
-type="color"
-id="colorPicker"
-value="#007bff">
+    <div id="preview">
 
-<label>HEX Code</label>
+        <span id="previewText">
+            #007BFF
+        </span>
 
-<input
-type="text"
-id="hex"
-readonly>
+    </div>
 
-<label>RGB Code</label>
 
-<input
-type="text"
-id="rgb"
-readonly>
+    <!-- COLOUR INPUT -->
 
-<div class="buttons">
+    <label for="colorPicker">
+        Choose Colour
+    </label>
 
-<button id="copyHex">
-📋 Copy HEX
-</button>
+    <input
+        type="color"
+        id="colorPicker"
+        value="#007bff"
+    >
 
-<button id="copyRgb">
-📋 Copy RGB
-</button>
 
-</div>
+    <!-- COLOUR CODES -->
 
-<button id="resetBtn">
+    <div class="color-info">
 
-🔄 Reset
+        <div class="color-field">
 
-</button>
+            <label for="hex">
+                HEX
+            </label>
+
+            <div class="input-row">
+
+                <input
+                    type="text"
+                    id="hex"
+                    readonly
+                >
+
+                <button id="copyHex">
+                    📋
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="color-field">
+
+            <label for="rgb">
+                RGB
+            </label>
+
+            <div class="input-row">
+
+                <input
+                    type="text"
+                    id="rgb"
+                    readonly
+                >
+
+                <button id="copyRgb">
+                    📋
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="color-field">
+
+            <label for="hsl">
+                HSL
+            </label>
+
+            <div class="input-row">
+
+                <input
+                    type="text"
+                    id="hsl"
+                    readonly
+                >
+
+                <button id="copyHsl">
+                    📋
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- COLOUR DETAILS -->
+
+    <div class="details">
+
+        <div class="detail-card">
+
+            <span class="detail-label">
+                Brightness
+            </span>
+
+            <strong id="brightness">
+                0%
+            </strong>
+
+        </div>
+
+
+        <div class="detail-card">
+
+            <span class="detail-label">
+                Lightness
+            </span>
+
+            <strong id="lightness">
+                0%
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="buttons">
+
+        <button id="randomBtn">
+            🎲 Random Colour
+        </button>
+
+        <button id="saveBtn">
+            💾 Save Colour
+        </button>
+
+    </div>
+
+
+    <!-- SAVED COLOURS -->
+
+    <div class="saved-section">
+
+        <h2>Saved Colours</h2>
+
+        <p id="savedEmpty">
+            No saved colours yet.
+        </p>
+
+        <div id="savedColors"></div>
+
+    </div>
+
+
+    <!-- RESET -->
+
+    <button id="resetBtn">
+        🔄 Reset
+    </button>
 
 </div>
 
