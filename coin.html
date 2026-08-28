@@ -1,81 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Coin Flip | ToolHub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Coin Flip | ToolHub</title>
 
 <link rel="stylesheet" href="coin.css">
 
-</head>
-<body>
-
-<header>
-
-<h1>🪙 Coin Flip</h1>
-
-<p>Flip a virtual coin instantly.</p>
+</head><body><header>
+    <h1>🪙 Coin Flip</h1><p>Flip a virtual coin and track your results.</p>
 
 <a href="index.html" class="home-btn">
-
-← Back to ToolHub
-
+    ← Back to ToolHub
 </a>
 
-</header>
-
-<div class="container">
-
-<div id="coin">
-
-🪙
-
+</header><main class="container"><!-- Coin -->
+<div id="coin" aria-label="Coin">
+    🪙
 </div>
 
-<h2 id="result">
-
-Press Flip
-
+<h2 id="result" aria-live="polite">
+    Press Flip
 </h2>
 
-<button id="flipBtn">
-
-🪙 Flip Coin
-
+<!-- Main action -->
+<button id="flipBtn" type="button">
+    🪙 Flip Coin
 </button>
 
-<div class="stats">
+<!-- Statistics -->
+<section class="stats" aria-label="Coin flip statistics">
 
-<p>Heads:
-<span id="heads">0</span></p>
+    <div class="stat-card">
+        <span class="stat-label">Heads</span>
+        <strong id="heads">0</strong>
+        <small id="headsPercent">0%</small>
+    </div>
 
-<p>Tails:
-<span id="tails">0</span></p>
+    <div class="stat-card">
+        <span class="stat-label">Tails</span>
+        <strong id="tails">0</strong>
+        <small id="tailsPercent">0%</small>
+    </div>
 
-<p>Total Flips:
-<span id="total">0</span></p>
+    <div class="stat-card">
+        <span class="stat-label">Total Flips</span>
+        <strong id="total">0</strong>
+    </div>
+
+</section>
+
+<!-- Balance -->
+<section class="balance-section">
+
+    <h3>⚖️ Balance</h3>
+
+    <div class="balance-bar">
+        <div id="headsBar"></div>
+    </div>
+
+    <p id="balanceText">
+        Waiting for flips...
+    </p>
+
+</section>
+
+<!-- Streak information -->
+<section class="streak-section">
+
+    <div>
+        <span>🔥 Current Streak</span>
+        <strong id="currentStreak">0</strong>
+    </div>
+
+    <div>
+        <span>🏆 Best Streak</span>
+        <strong id="bestStreak">0</strong>
+    </div>
+
+    <div>
+        <span>🎯 Most Frequent</span>
+        <strong id="mostFrequent">—</strong>
+    </div>
+
+</section>
+
+<!-- Recent flips -->
+<section class="history-section">
+
+    <h3>🕘 Recent Flips</h3>
+
+    <ul id="history">
+        <li>No flips yet.</li>
+    </ul>
+
+</section>
+
+<!-- Secondary actions -->
+<div class="buttons">
+
+    <button id="copyBtn" type="button">
+        📋 Copy Result
+    </button>
+
+    <button id="resetBtn" type="button">
+        🔄 Reset Statistics
+    </button>
 
 </div>
 
-<h3>Recent Flips</h3>
-
-<ul id="history">
-
-<li>No flips yet.</li>
-
-</ul>
-
-<button id="resetBtn">
-
-🔄 Reset Statistics
-
-</button>
-
-</div>
-
-<script src="coin.js"></script>
-
-</body>
+</main><script src="coin.js"></script></body>
 </html>
