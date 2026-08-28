@@ -1,109 +1,486 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+const colorPicker = document.getElementById("colorPicker");
+const preview = document.getElementById("preview");
+const previewText = document.getElementById("previewText");
+
+const hex = document.getElementById("hex");
+const rgb = document.getElementById("rgb");
+const hsl = document.getElementById("hsl");
+
+const brightness = document.getElementById("brightness");
+const lightness = document.getElementById("lightness");
+
+const copyHex = document.getElementById("copyHex");
+const copyRgb = document.getElementById("copyRgb");
+const copyHsl = document.getElementById("copyHsl");
+
+const randomBtn = document.getElementById("randomBtn");
+const saveBtn = document.getElementById("saveBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const savedColors = document.getElementById("savedColors");
+const savedEmpty = document.getElementById("savedEmpty");
+
+const DEFAULT_COLOR = "#007BFF";
+
+let savedColorList = [];
+
+// ============================================================
+// INITIALIZE
+// ============================================================
+
+loadSavedColors();
+updateColor();
+
+// ============================================================
+// COLOUR UPDATE
+// ============================================================
+
+colorPicker.addEventListener("input", updateColor);
+
+function updateColor() {
+
+const color = colorPicker.value.toUpperCase();
+
+// Preview
+preview.style.backgroundColor = color;
+
+if (previewText) {
+    previewText.textContent = color;
 }
 
-body{
-    background:#f4f7fb;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    min-height:100vh;
+// HEX
+hex.value = color;
+
+// RGB
+const rgbValues = hexToRgb(color);
+
+if (rgbValues) {
+    rgb.value = `rgb(${rgbValues.r}, ${rgbValues.g}, ${rgbValues.b})`;
+
+    // HSL
+    const hslValues = rgbToHsl(
+        rgbValues.r,
+        rgbValues.g,
+        rgbValues.b
+    );
+
+    hsl.value =
+        `hsl(${hslValues.h}, ${hslValues.s}%, ${hslValues.l}%)`;
+
+    // Brightness
+    const brightnessValue = calculateBrightness(
+        rgbValues.r,
+        rgbValues.g,
+        rgbValues.b
+    );
+
+    brightness.textContent = `${brightnessValue}%`;
+
+    // Lightness
+    lightness.textContent = `${hslValues.l}%`;
 }
 
-header{
-    width:100%;
-    background:linear-gradient(135deg,#007bff,#00b4ff);
-    color:white;
-    text-align:center;
-    padding:40px 20px;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
 }
 
-header h1{
-    font-size:36px;
-    margin-bottom:10px;
+// ============================================================
+// HEX → RGB
+// ============================================================
+
+function hexToRgb(hexColor) {
+
+const cleanHex = hexColor.replace("#", "");
+
+if (cleanHex.length !== 6) {
+    return null;
 }
 
-header p{
-    margin-bottom:20px;
+return {
+    r: parseInt(cleanHex.substring(0, 2), 16),
+    g: parseInt(cleanHex.substring(2, 4), 16),
+    b: parseInt(cleanHex.substring(4, 6), 16)
+};
+
 }
 
-.home-btn{
-    display:inline-block;
-    background:white;
-    color:#007bff;
-    text-decoration:none;
-    padding:10px 20px;
-    border-radius:30px;
-    font-weight:bold;
+// ============================================================
+// RGB → HSL
+// ============================================================
+
+function rgbToHsl(r, g, b) {
+
+r /= 255;
+g /= 255;
+b /= 255;
+
+const max = Math.max(r, g, b);
+const min = Math.min(r, g, b);
+
+let h;
+let s;
+
+const l = (max + min) / 2;
+
+if (max === min) {
+
+    h = 0;
+    s = 0;
+
+} else {
+
+    const difference = max - min;
+
+    s = l > 0.5
+        ? difference / (2 - max - min)
+        : difference / (max + min);
+
+    switch (max) {
+
+        case r:
+            h =
+                ((g - b) / difference +
+                (g < b ? 6 : 0));
+
+            break;
+
+        case g:
+            h =
+                ((b - r) / difference) + 2;
+
+            break;
+
+        case b:
+            h =
+                ((r - g) / difference) + 4;
+
+            break;
+    }
+
+    h /= 6;
 }
 
-.container{
-    width:90%;
-    max-width:500px;
-    background:white;
-    margin:40px auto;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
+return {
+    h: Math.round(h * 360),
+    s: Math.round(s * 100),
+    l: Math.round(l * 100)
+};
+
 }
 
-#preview{
-    width:100%;
-    height:150px;
-    background:#007bff;
-    border-radius:15px;
-    margin-bottom:20px;
-    border:3px solid #ddd;
+// ============================================================
+// BRIGHTNESS
+// ============================================================
+
+function calculateBrightness(r, g, b) {
+
+const value =
+    (r * 299 +
+     g * 587 +
+     b * 114) / 1000;
+
+return Math.round((value / 255) * 100);
+
 }
 
-input[type="color"]{
-    width:100%;
-    height:60px;
-    border:none;
-    cursor:pointer;
-    margin-bottom:20px;
+// ============================================================
+// COPY HELPER
+// ============================================================
+
+async function copyToClipboard(text, button, originalText) {
+
+try {
+
+    await navigator.clipboard.writeText(text);
+
+    button.textContent = "✅ Copied!";
+
+    setTimeout(() => {
+        button.textContent = originalText;
+    }, 1500);
+
+} catch (error) {
+
+    // Fallback for browsers where Clipboard API is unavailable
+    const temporaryInput = document.createElement("textarea");
+
+    temporaryInput.value = text;
+    temporaryInput.style.position = "fixed";
+    temporaryInput.style.opacity = "0";
+
+    document.body.appendChild(temporaryInput);
+
+    temporaryInput.select();
+
+    try {
+        document.execCommand("copy");
+        button.textContent = "✅ Copied!";
+
+        setTimeout(() => {
+            button.textContent = originalText;
+        }, 1500);
+
+    } catch (fallbackError) {
+
+        button.textContent = "❌ Failed";
+
+        setTimeout(() => {
+            button.textContent = originalText;
+        }, 1500);
+    }
+
+    temporaryInput.remove();
 }
 
-label{
-    display:block;
-    margin:10px 0 5px;
-    font-weight:bold;
 }
 
-input[type="text"]{
-    width:100%;
-    padding:14px;
-    border:2px solid #ddd;
-    border-radius:10px;
-    margin-bottom:15px;
-    font-size:16px;
+// ============================================================
+// COPY BUTTONS
+// ============================================================
+
+copyHex.addEventListener("click", () => {
+
+copyToClipboard(
+    hex.value,
+    copyHex,
+    "📋"
+);
+
+});
+
+copyRgb.addEventListener("click", () => {
+
+copyToClipboard(
+    rgb.value,
+    copyRgb,
+    "📋"
+);
+
+});
+
+copyHsl.addEventListener("click", () => {
+
+copyToClipboard(
+    hsl.value,
+    copyHsl,
+    "📋"
+);
+
+});
+
+// ============================================================
+// RANDOM COLOUR
+// ============================================================
+
+randomBtn.addEventListener("click", () => {
+
+const randomNumber =
+    Math.floor(Math.random() * 16777216);
+
+const randomHex =
+    "#" + randomNumber
+        .toString(16)
+        .padStart(6, "0")
+        .toUpperCase();
+
+colorPicker.value = randomHex;
+
+updateColor();
+
+});
+
+// ============================================================
+// SAVE COLOUR
+// ============================================================
+
+saveBtn.addEventListener("click", () => {
+
+const color = colorPicker.value.toUpperCase();
+
+// Prevent duplicates
+if (savedColorList.includes(color)) {
+
+    saveBtn.textContent = "✓ Already Saved";
+
+    setTimeout(() => {
+        saveBtn.textContent = "💾 Save Colour";
+    }, 1500);
+
+    return;
 }
 
-.buttons{
-    display:flex;
-    gap:10px;
+savedColorList.unshift(color);
+
+// Keep maximum of 20 saved colours
+if (savedColorList.length > 20) {
+    savedColorList.pop();
 }
 
-.buttons button{
-    flex:1;
+saveSavedColors();
+renderSavedColors();
+
+saveBtn.textContent = "✅ Saved!";
+
+setTimeout(() => {
+    saveBtn.textContent = "💾 Save Colour";
+}, 1500);
+
+});
+
+// ============================================================
+// RENDER SAVED COLOURS
+// ============================================================
+
+function renderSavedColors() {
+
+savedColors.innerHTML = "";
+
+if (savedColorList.length === 0) {
+
+    savedEmpty.style.display = "block";
+    return;
 }
 
-button{
-    width:100%;
-    padding:15px;
-    margin-top:15px;
-    background:#007bff;
-    color:white;
-    border:none;
-    border-radius:12px;
-    font-size:16px;
-    cursor:pointer;
+savedEmpty.style.display = "none";
+
+savedColorList.forEach((color, index) => {
+
+    const item = document.createElement("div");
+
+    item.className = "saved-color";
+
+    // Colour swatch
+    const swatch = document.createElement("div");
+
+    swatch.className = "saved-swatch";
+    swatch.style.backgroundColor = color;
+
+    // Colour value
+    const value = document.createElement("span");
+
+    value.textContent = color;
+
+    // Remove button
+    const removeButton = document.createElement("button");
+
+    removeButton.className = "remove-color";
+    removeButton.textContent = "×";
+    removeButton.setAttribute(
+        "aria-label",
+        `Remove ${color}`
+    );
+
+    // Clicking swatch/value selects colour
+    item.addEventListener("click", (event) => {
+
+        if (event.target === removeButton) {
+            return;
+        }
+
+        colorPicker.value = color;
+        updateColor();
+
+    });
+
+    // Remove saved colour
+    removeButton.addEventListener("click", () => {
+
+        savedColorList.splice(index, 1);
+
+        saveSavedColors();
+        renderSavedColors();
+
+    });
+
+    item.appendChild(swatch);
+    item.appendChild(value);
+    item.appendChild(removeButton);
+
+    savedColors.appendChild(item);
+
+});
+
 }
 
-button:hover{
-    background:#005fd1;
+// ============================================================
+// LOCAL STORAGE
+// ============================================================
+
+function saveSavedColors() {
+
+try {
+
+    localStorage.setItem(
+        "toolhubSavedColors",
+        JSON.stringify(savedColorList)
+    );
+
+} catch (error) {
+
+    console.warn(
+        "Could not save colours locally."
+    );
+
 }
+
+}
+
+function loadSavedColors() {
+
+try {
+
+    const stored =
+        localStorage.getItem("toolhubSavedColors");
+
+    if (stored) {
+
+        const parsed = JSON.parse(stored);
+
+        if (Array.isArray(parsed)) {
+
+            savedColorList = parsed
+                .filter(color =>
+                    typeof color === "string" &&
+                    /^#[0-9A-Fa-f]{6}$/.test(color)
+                )
+                .slice(0, 20);
+
+        }
+    }
+
+} catch (error) {
+
+    savedColorList = [];
+
+}
+
+renderSavedColors();
+
+}
+
+// ============================================================
+// RESET
+// ============================================================
+
+resetBtn.addEventListener("click", () => {
+
+colorPicker.value = DEFAULT_COLOR;
+
+savedColorList = [];
+
+try {
+    localStorage.removeItem("toolhubSavedColors");
+} catch (error) {
+    console.warn(
+        "Could not clear saved colours."
+    );
+}
+
+updateColor();
+renderSavedColors();
+
+resetBtn.textContent = "✅ Reset!";
+
+setTimeout(() => {
+    resetBtn.textContent = "🔄 Reset";
+}, 1500);
+
+});
