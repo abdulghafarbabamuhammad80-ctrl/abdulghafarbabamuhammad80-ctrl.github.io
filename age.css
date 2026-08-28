@@ -75,13 +75,8 @@
 }
 
 @keyframes gridDrift {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 42px 42px;
-  }
+  0% { background-position: 0 0; }
+  100% { background-position: 42px 42px; }
 }
 
 /* ============================================================
@@ -173,25 +168,14 @@
   left: -2px;
   right: -2px;
   height: 3px;
-  background: linear-gradient(
-    90deg,
-    var(--cyan),
-    var(--purple),
-    var(--pink),
-    var(--cyan)
-  );
+  background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink), var(--cyan));
   background-size: 300% 100%;
   animation: borderFlow 6s linear infinite;
 }
 
 @keyframes borderFlow {
-  0% {
-    background-position: 0% 0;
-  }
-
-  100% {
-    background-position: 300% 0;
-  }
+  0% { background-position: 0% 0; }
+  100% { background-position: 300% 0; }
 }
 
 .card-heading {
@@ -202,11 +186,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin: 4px 0 24px;
-  background: linear-gradient(
-    90deg,
-    var(--cyan-soft),
-    var(--purple-soft)
-  );
+  background: linear-gradient(90deg, var(--cyan-soft), var(--purple-soft));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -260,14 +240,11 @@
 
 #birthDate:focus {
   border-color: var(--cyan);
-  box-shadow:
-    0 0 0 3px rgba(0, 245, 255, 0.14),
-    0 0 18px rgba(0, 245, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.14), 0 0 18px rgba(0, 245, 255, 0.35);
 }
 
 #birthDate::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(1.6)
-    drop-shadow(0 0 4px rgba(0, 245, 255, 0.8));
+  filter: invert(1) brightness(1.6) drop-shadow(0 0 4px rgba(0, 245, 255, 0.8));
   cursor: pointer;
 }
 
@@ -285,21 +262,13 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #04050d;
-  background: linear-gradient(
-    120deg,
-    var(--cyan),
-    var(--purple)
-  );
+  background: linear-gradient(120deg, var(--cyan), var(--purple));
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   overflow: hidden;
-  box-shadow:
-    0 0 22px rgba(0, 245, 255, 0.35),
-    0 0 22px rgba(168, 85, 247, 0.2);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.3s ease;
+  box-shadow: 0 0 22px rgba(0, 245, 255, 0.35), 0 0 22px rgba(168, 85, 247, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .calculate-btn::before {
@@ -309,21 +278,14 @@
   left: -60%;
   width: 40%;
   height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.55),
-    transparent
-  );
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   transform: skewX(-20deg);
   transition: left 0.6s ease;
 }
 
 .calculate-btn:hover {
   transform: translateY(-2px);
-  box-shadow:
-    0 0 30px rgba(0, 245, 255, 0.55),
-    0 0 30px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.55), 0 0 30px rgba(168, 85, 247, 0.4);
 }
 
 .calculate-btn:hover::before {
@@ -345,11 +307,8 @@
   border-radius: var(--radius-md);
   background: rgba(10, 13, 30, 0.65);
   border: 1px solid var(--border-purple);
-  box-shadow:
-    0 0 26px rgba(168, 85, 247, 0.16) inset,
-    0 0 20px rgba(168, 85, 247, 0.12);
-  animation:
-    resultReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-shadow: 0 0 26px rgba(168, 85, 247, 0.16) inset, 0 0 20px rgba(168, 85, 247, 0.12);
+  animation: resultReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   overflow: hidden;
 }
 
@@ -400,16 +359,9 @@
   gap: 6px;
   padding: 16px 8px;
   border-radius: var(--radius-sm);
-  background: linear-gradient(
-    160deg,
-    rgba(0, 245, 255, 0.07),
-    rgba(168, 85, 247, 0.07)
-  );
+  background: linear-gradient(160deg, rgba(0, 245, 255, 0.07), rgba(168, 85, 247, 0.07));
   border: 1px solid rgba(0, 245, 255, 0.22);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .age-box:hover {
@@ -426,11 +378,7 @@
   font-size: 1.6rem;
   font-weight: 900;
   line-height: 1;
-  background: linear-gradient(
-    180deg,
-    var(--cyan-soft),
-    var(--cyan)
-  );
+  background: linear-gradient(180deg, var(--cyan-soft), var(--cyan));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -450,7 +398,7 @@
 }
 
 /* ============================================================
-   BIRTHDAY RESULT
+   BIRTHDAY RESULT (High-emphasis panel)
    ============================================================ */
 
 .birthday-result {
@@ -460,11 +408,7 @@
   padding: 16px 18px;
   border-radius: var(--radius-sm);
   text-align: center;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 47, 176, 0.10),
-    rgba(168, 85, 247, 0.12)
-  );
+  background: linear-gradient(120deg, rgba(255, 47, 176, 0.10), rgba(168, 85, 247, 0.12));
   border: 1px solid rgba(255, 47, 176, 0.4);
   box-shadow: 0 0 22px rgba(255, 47, 176, 0.2);
   animation: birthdayGlow 2.6s ease-in-out infinite;
@@ -484,84 +428,33 @@
    ============================================================ */
 
 @keyframes fadeSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-14px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes cardEntrance {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes resultReveal {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes iconPulse {
-  0%,
-  100% {
-    filter: drop-shadow(
-      0 0 8px rgba(0, 245, 255, 0.85)
-    );
-  }
-
-  50% {
-    filter: drop-shadow(
-      0 0 14px rgba(0, 245, 255, 1)
-    );
-  }
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.85)); }
+  50% { filter: drop-shadow(0 0 14px rgba(0, 245, 255, 1)); }
 }
 
 @keyframes numberPulse {
-  0%,
-  100% {
-    filter: drop-shadow(
-      0 0 8px rgba(0, 245, 255, 0.45)
-    );
-  }
-
-  50% {
-    filter: drop-shadow(
-      0 0 14px rgba(0, 245, 255, 0.75)
-    );
-  }
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.45)); }
+  50% { filter: drop-shadow(0 0 14px rgba(0, 245, 255, 0.75)); }
 }
 
 @keyframes birthdayGlow {
-  0%,
-  100% {
-    box-shadow:
-      0 0 22px rgba(255, 47, 176, 0.2);
-    border-color: rgba(255, 47, 176, 0.4);
-  }
-
-  50% {
-    box-shadow:
-      0 0 32px rgba(255, 47, 176, 0.4);
-    border-color: rgba(255, 47, 176, 0.65);
-  }
+  0%, 100% { box-shadow: 0 0 22px rgba(255, 47, 176, 0.2); border-color: rgba(255, 47, 176, 0.4); }
+  50% { box-shadow: 0 0 32px rgba(255, 47, 176, 0.4); border-color: rgba(255, 47, 176, 0.65); }
 }
 
 /* ============================================================
@@ -569,48 +462,22 @@
    ============================================================ */
 
 @media (min-width: 600px) {
-  .card-heading {
-    font-size: 1.5rem;
-  }
-
-  .calculator-card {
-    padding: 34px 30px;
-  }
-
+  .card-heading { font-size: 1.5rem; }
+  .calculator-card { padding: 34px 30px; }
   .age-box span:first-child,
-  #years,
-  #months,
-  #days {
-    font-size: 1.9rem;
-  }
+  #years, #months, #days { font-size: 1.9rem; }
 }
 
 @media (min-width: 900px) {
-  .age-page {
-    padding-top: 40px;
-  }
-
-  .tool-header,
-  .calculator-card {
-    max-width: 560px;
-  }
+  .age-page { padding-top: 40px; }
+  .tool-header, .calculator-card { max-width: 560px; }
 }
 
 @media (max-width: 360px) {
-  .age-results {
-    gap: 7px;
-  }
-
-  .age-box {
-    padding: 12px 4px;
-  }
-
+  .age-results { gap: 7px; }
+  .age-box { padding: 12px 4px; }
   .age-box span:first-child,
-  #years,
-  #months,
-  #days {
-    font-size: 1.3rem;
-  }
+  #years, #months, #days { font-size: 1.3rem; }
 }
 
 /* ============================================================
@@ -618,9 +485,7 @@
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -632,4 +497,4 @@
 #birthDate:focus-visible {
   outline: 2px solid var(--cyan);
   outline-offset: 2px;
-   }
+     }
